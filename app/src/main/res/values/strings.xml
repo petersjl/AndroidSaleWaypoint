@@ -10,4 +10,13 @@
 	<string name="menu_home">Home</string>
 	<string name="menu_gallery">Gallery</string>
 	<string name="menu_slideshow">Slideshow</string>
+    <string name="nav_wishlist">Wishlist</string>
+	<string name="nav_sales">What\'s on sale</string>
+	<string name="nav_search">Search</string>
+	<string name="nav_stores">Stores</string>
+    <string name="nav_steam">Steam</string>
+	<string name="nav_playstation">PlayStation</string>
+	<string name="nav_xbox">Xbox</string>
+	<string name="nav_nintendo">Nintendo</string>
+	<string name="nav_itch">Itch</string>
 </resources>

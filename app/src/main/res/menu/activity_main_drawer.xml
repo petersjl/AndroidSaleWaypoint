@@ -5,16 +5,43 @@
 
 	<group android:checkableBehavior="single">
 		<item
-			android:id="@+id/nav_home"
-			android:icon="@drawable/ic_menu_camera"
-			android:title="@string/menu_home" />
+			android:id="@+id/nav_wishlist"
+			android:title="@string/nav_wishlist" />
 		<item
-			android:id="@+id/nav_gallery"
-			android:icon="@drawable/ic_menu_gallery"
-			android:title="@string/menu_gallery" />
+			android:id="@+id/nav_sales"
+			android:title="@string/nav_sales" />
 		<item
-			android:id="@+id/nav_slideshow"
-			android:icon="@drawable/ic_menu_slideshow"
-			android:title="@string/menu_slideshow" />
+			android:id="@+id/nav_search"
+			android:title="@string/nav_search" />
+		<item
+			android:id="@+id/nav_stores"
+			android:title="@string/nav_stores"
+			android:enabled="false"
+			/>
+		<item
+			android:id="@+id/nav_steam"
+			android:icon="@drawable/ic_steam"
+			android:title="@string/nav_steam"
+			/>
+		<item
+			android:id="@+id/nav_playstation"
+			android:icon="@drawable/ic_playstation"
+			android:title="@string/nav_playstation"
+			/>
+		<item
+			android:id="@+id/nav_xbox"
+			android:icon="@drawable/ic_xbox"
+			android:title="@string/nav_xbox"
+			/>
+		<item
+			android:id="@+id/nav_nintendo"
+			android:icon="@drawable/ic_nintendo"
+			android:title="@string/nav_nintendo"
+			/>
+		<item
+			android:id="@+id/nav_itch"
+			android:icon="@drawable/ic_itch"
+			android:title="@string/nav_itch"
+			/>
 	</group>
 </menu>
