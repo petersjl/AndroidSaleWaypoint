@@ -2,8 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
-		android:id="@+id/action_settings"
+		android:id="@+id/app_bar_search"
+		android:icon="@drawable/ic_search_black_24dp"
 		android:orderInCategory="100"
+		app:actionViewClass="android.widget.SearchView"
+		app:showAsAction="ifRoom"
+		android:title="@string/action_search"/>
+	<item
+		android:id="@+id/action_settings"
+		android:orderInCategory="101"
 		android:title="@string/action_settings"
 		app:showAsAction="never" />
 </menu>

@@ -10,9 +10,9 @@
 		<item
 			android:id="@+id/nav_sales"
 			android:title="@string/nav_sales" />
-		<item
-			android:id="@+id/nav_search"
-			android:title="@string/nav_search" />
+<!--		<item-->
+<!--			android:id="@+id/nav_search"-->
+<!--			android:title="@string/nav_search" />-->
 		<item
 			android:id="@+id/nav_stores"
 			android:title="@string/nav_stores"
