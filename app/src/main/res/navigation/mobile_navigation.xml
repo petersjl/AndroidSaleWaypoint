@@ -3,23 +3,23 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/mobile_navigation"
-	app:startDestination="@+id/nav_home">
+	app:startDestination="@+id/nav_wishlist">
 
 	<fragment
-		android:id="@+id/nav_home"
-		android:name="edu.rosehulman.andersc7.androidsalewaypoint.ui.home.HomeFragment"
+		android:id="@+id/nav_wishlist"
+		android:name="edu.rosehulman.andersc7.androidsalewaypoint.ui.wishlist.WishlistFragment"
 		android:label="@string/menu_home"
-		tools:layout="@layout/fragment_home" />
+		tools:layout="@layout/fragment_wishlist" />
 
 	<fragment
-		android:id="@+id/nav_gallery"
-		android:name="edu.rosehulman.andersc7.androidsalewaypoint.ui.gallery.GalleryFragment"
+		android:id="@+id/nav_sales"
+		android:name="edu.rosehulman.andersc7.androidsalewaypoint.ui.sales.SalesFragment"
 		android:label="@string/menu_gallery"
-		tools:layout="@layout/fragment_gallery" />
+		tools:layout="@layout/fragment_sales" />
 
 	<fragment
-		android:id="@+id/nav_slideshow"
-		android:name="edu.rosehulman.andersc7.androidsalewaypoint.ui.slideshow.SlideshowFragment"
+		android:id="@+id/nav_stores"
+		android:name="edu.rosehulman.andersc7.androidsalewaypoint.ui.stores.StoresFragment"
 		android:label="@string/menu_slideshow"
-		tools:layout="@layout/fragment_slideshow" />
+		tools:layout="@layout/fragment_stores" />
 </navigation>
