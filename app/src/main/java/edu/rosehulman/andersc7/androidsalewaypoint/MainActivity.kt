@@ -1,7 +1,9 @@
 package edu.rosehulman.andersc7.androidsalewaypoint
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.view.OrientationEventListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -13,10 +15,19 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.wishlist.WishlistFragment
 
 class MainActivity : AppCompatActivity() {
 
 	private lateinit var appBarConfiguration: AppBarConfiguration
+
+	private var auth = FirebaseAuth.getInstance()
+	private lateinit var authStateListener: FirebaseAuth.AuthStateListener
+
+	// Request code for launching the sign in Intent.
+	private val RC_SIGN_IN = 1
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -38,6 +49,44 @@ class MainActivity : AppCompatActivity() {
 				R.id.nav_wishlist, R.id.nav_sales, R.id.nav_stores), drawerLayout)
 		setupActionBarWithNavController(navController, appBarConfiguration)
 		navView.setupWithNavController(navController)
+
+		initializeListeners()
+	}
+
+	override fun onStart() {
+		super.onStart()
+		auth.addAuthStateListener(authStateListener)
+	}
+
+	override fun onStop() {
+		super.onStop()
+		auth.removeAuthStateListener(authStateListener)
+	}
+
+	fun initializeListeners(){
+		Log.d("tag", "Initializing listeners")
+		authStateListener = FirebaseAuth.AuthStateListener { auth: FirebaseAuth ->
+			val user = auth.currentUser
+			Log.d("tag", "User is: $user")
+			if (user == null){
+				// Choose authentication providers
+				val providers = arrayListOf(AuthUI.IdpConfig.GoogleBuilder().build())
+
+				// Create and launch sign-in intent
+				startActivityForResult(
+					AuthUI.getInstance()
+						.createSignInIntentBuilder()
+						.setAvailableProviders(providers)
+						.setLogo(R.drawable.ic_launcher_foreground)
+						.build(),
+					RC_SIGN_IN)
+			}
+			else {
+				val ft = supportFragmentManager.beginTransaction()
+				ft.replace(R.id.nav_host_fragment, WishlistFragment())
+				ft.commit()
+			}
+		}
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
