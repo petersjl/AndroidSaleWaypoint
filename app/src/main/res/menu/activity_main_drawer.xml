@@ -10,38 +10,44 @@
 		<item
 			android:id="@+id/nav_sales"
 			android:title="@string/nav_sales" />
+		<item
+			android:id="@+id/settings"
+			android:title="@string/settings"/>
+		<item
+			android:id="@+id/log_out"
+			android:title="@string/logout"/>
 <!--		<item-->
 <!--			android:id="@+id/nav_search"-->
 <!--			android:title="@string/nav_search" />-->
-		<item
-			android:id="@+id/nav_stores"
-			android:title="@string/nav_stores"
-			android:enabled="false"
-			/>
-		<item
-			android:id="@+id/nav_steam"
-			android:icon="@drawable/ic_steam"
-			android:title="@string/nav_steam"
-			/>
-		<item
-			android:id="@+id/nav_playstation"
-			android:icon="@drawable/ic_playstation"
-			android:title="@string/nav_playstation"
-			/>
-		<item
-			android:id="@+id/nav_xbox"
-			android:icon="@drawable/ic_xbox"
-			android:title="@string/nav_xbox"
-			/>
-		<item
-			android:id="@+id/nav_nintendo"
-			android:icon="@drawable/ic_nintendo"
-			android:title="@string/nav_nintendo"
-			/>
-		<item
-			android:id="@+id/nav_itch"
-			android:icon="@drawable/ic_itch"
-			android:title="@string/nav_itch"
-			/>
-	</group>
+
+	</group >
+	<item android:title="@string/nav_stores">
+		<menu >
+			<item
+				android:id="@+id/nav_steam"
+				android:icon="@drawable/ic_steam"
+				android:title="@string/nav_steam"
+				/>
+			<item
+				android:id="@+id/nav_playstation"
+				android:icon="@drawable/ic_playstation"
+				android:title="@string/nav_playstation"
+				/>
+			<item
+				android:id="@+id/nav_xbox"
+				android:icon="@drawable/ic_xbox"
+				android:title="@string/nav_xbox"
+				/>
+			<item
+				android:id="@+id/nav_nintendo"
+				android:icon="@drawable/ic_nintendo"
+				android:title="@string/nav_nintendo"
+				/>
+			<item
+				android:id="@+id/nav_itch"
+				android:icon="@drawable/ic_itch"
+				android:title="@string/nav_itch"
+				/>
+		</menu>
+	</item>
 </menu>

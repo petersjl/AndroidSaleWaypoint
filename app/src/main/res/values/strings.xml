@@ -22,4 +22,6 @@
 	<string name="nav_xbox">Xbox</string>
 	<string name="nav_nintendo">Nintendo</string>
 	<string name="nav_itch">Itch</string>
+	<string name="logout">Logout</string>
+	<string name="settings">Settings</string>
 </resources>
