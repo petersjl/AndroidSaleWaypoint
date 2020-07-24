@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "709287764299",
+    "firebase_url": "https://android-sale-waypoint.firebaseio.com",
+    "project_id": "android-sale-waypoint",
+    "storage_bucket": "android-sale-waypoint.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709287764299:android:8afdfa59578ac2606188ce",
+        "android_client_info": {
+          "package_name": "edu.rosehulman.andersc7.androidsalewaypoint"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "709287764299-dnmeu3nme5o62sq6rt2giv47g3fr6u8i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.rosehulman.andersc7.androidsalewaypoint",
+            "certificate_hash": "0ccae18539c70ef71dad758d1ce264cc6345b931"
+          }
+        },
+        {
+          "client_id": "709287764299-2gcjaecbm01oucuofu57tck1b5c2oja4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAanFsYWDSI1dV3HYt5mB54ovQFJmydcJ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "709287764299-2gcjaecbm01oucuofu57tck1b5c2oja4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
