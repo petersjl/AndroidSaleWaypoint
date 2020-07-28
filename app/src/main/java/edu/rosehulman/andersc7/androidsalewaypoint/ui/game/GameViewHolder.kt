@@ -13,6 +13,8 @@ class GameViewHolder : RecyclerView.ViewHolder {
 	}
 
 	fun bind(game: Game) {
-
+		this.itemView.setOnClickListener {
+			this.adapter.selectGameAt(this.adapterPosition)
+		}
 	}
 }

@@ -17,9 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.Game
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameAdapter
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameFragment
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.wishlist.WishlistFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener {
 
 	private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -98,5 +101,14 @@ class MainActivity : AppCompatActivity() {
 	override fun onSupportNavigateUp(): Boolean {
 		val navController = findNavController(R.id.nav_host_fragment)
 		return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+	}
+
+	override fun onGameSelected(game: Game) {
+		Log.d(Constants.TAG, "Game selected: ${game.title}")
+		val gameFragment = GameFragment.newInstance(game)
+		val ft = this.supportFragmentManager.beginTransaction()
+		ft.replace(R.id.nav_host_fragment, gameFragment)
+		ft.addToBackStack("game")
+		ft.commit()
 	}
 }
