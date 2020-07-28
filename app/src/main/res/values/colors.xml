@@ -3,5 +3,10 @@
 	<color name="colorPrimary">#6200EE</color>
 	<color name="colorPrimaryDark">#3700B3</color>
 	<color name="colorAccent">#03DAC5</color>
-	<color name="ic_sale_waypoint_background">#3C3C3C</color>
+
+	<color name="colorBackground">#202125</color>
+	<color name="colorTextPrimary">#EEEEEE</color>
+	<color name="colorTextSecondary">#888888</color>
+	<color name="colorSale">#00A273</color>
+	<color name="colorFavorite">#F2C94C</color>
 </resources>
