@@ -1,15 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
+	android:layout_height="108dp"
 	android:layout_marginHorizontal="12dp"
-	android:layout_marginVertical="24dp"
+	android:layout_marginVertical="18dp"
 	android:background="#000000">
 
-	<TextView
+	<ImageView
 		android:layout_width="match_parent"
-		android:layout_height="108dp"
-		android:text="text"/>
+		android:layout_height="match_parent"/>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="24dp"
+		android:layout_alignParentBottom="true"
+		android:background="@color/colorSaleBanner">
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:orientation="horizontal"
+			android:padding="2dp">
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_nintendo"
+				android:contentDescription="@string/store_icon" />
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_steam"
+				android:contentDescription="@string/store_icon" />
+
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_xbox"
+				android:contentDescription="@string/store_icon" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:orientation="horizontal"
+			android:layout_alignParentEnd="true"
+			android:padding="2dp">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:paddingHorizontal="4dp"
+				android:textColor="@color/colorSale"
+				android:text="-30%"/>
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:background="@color/colorSaleBannerTextBackground"
+				android:paddingHorizontal="4dp"
+				android:text="$9.99"/>
+
+		</LinearLayout>
+
+	</RelativeLayout>
 
 </RelativeLayout>

@@ -9,4 +9,6 @@
 	<color name="colorTextSecondary">#888888</color>
 	<color name="colorSale">#00A273</color>
 	<color name="colorFavorite">#F2C94C</color>
+	<color name="colorSaleBanner">#546E7A</color>
+	<color name="colorSaleBannerTextBackground">#455A64</color>
 </resources>
