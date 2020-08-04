@@ -27,6 +27,7 @@
 				android:id="@+id/nav_steam"
 				android:icon="@drawable/ic_steam"
 				android:title="@string/nav_steam"
+				android:iconTint="@color/colorSale"
 				/>
 			<item
 				android:id="@+id/nav_playstation"
