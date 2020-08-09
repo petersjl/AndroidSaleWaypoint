@@ -1,9 +1,13 @@
 package edu.rosehulman.andersc7.androidsalewaypoint
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.view.OrientationEventListener
+import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -15,14 +19,21 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.AddFragment
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.Game
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameAdapter
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameFragment
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.sales.SalesFragment
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.stores.StoresFragment
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.wishlist.WishlistFragment
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener {
+class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
 	private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -38,20 +49,15 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener {
 		val toolbar: Toolbar = findViewById(R.id.toolbar)
 		setSupportActionBar(toolbar)
 
-		val fab: FloatingActionButton = findViewById(R.id.fab)
-		fab.setOnClickListener { view ->
-			Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-					.setAction("Action", null).show()
-		}
 		val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
 		val navView: NavigationView = findViewById(R.id.nav_view)
-		val navController = findNavController(R.id.nav_host_fragment)
-		// Passing each menu ID as a set of Ids because each
-		// menu should be considered as top level destinations.
-		appBarConfiguration = AppBarConfiguration(setOf(
-				R.id.nav_wishlist, R.id.nav_sales, R.id.nav_stores), drawerLayout)
-		setupActionBarWithNavController(navController, appBarConfiguration)
-		navView.setupWithNavController(navController)
+
+		val toggle = ActionBarDrawerToggle(
+			this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+		)
+		drawer_layout.addDrawerListener(toggle)
+		toggle.syncState()
+		nav_view.setNavigationItemSelectedListener(this)
 
 		initializeListeners()
 	}
@@ -86,7 +92,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener {
 			}
 			else {
 				val ft = supportFragmentManager.beginTransaction()
-				ft.replace(R.id.nav_host_fragment, WishlistFragment())
+				ft.replace(R.id.fragment_container, WishlistFragment())
 				ft.commit()
 			}
 		}
@@ -98,17 +104,63 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener {
 		return true
 	}
 
-	override fun onSupportNavigateUp(): Boolean {
-		val navController = findNavController(R.id.nav_host_fragment)
-		return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-	}
-
 	override fun onGameSelected(game: Game) {
 		Log.d(Constants.TAG, "Game selected: ${game.title}")
 		val gameFragment = GameFragment.newInstance(game)
 		val ft = this.supportFragmentManager.beginTransaction()
-		ft.replace(R.id.nav_host_fragment, gameFragment)
+		ft.replace(R.id.fragment_container, gameFragment)
 		ft.addToBackStack("game")
 		ft.commit()
+	}
+
+	override fun onNavigationItemSelected(item: MenuItem): Boolean {
+		var switchTo: Fragment? = null
+		// Handle navigation view item clicks here.
+		when (item.itemId) {
+			R.id.nav_wishlist -> {
+				switchTo = WishlistFragment()
+				toolbar.title = "Wishlist"
+			}
+			R.id.nav_sales -> {
+				switchTo = SalesFragment()
+				toolbar.title = "What's on sale"
+			}
+			R.id.nav_add -> {
+				switchTo = AddFragment()
+				toolbar.title = "Add a game"
+			}
+			R.id.nav_log_out ->
+				auth.signOut()
+			R.id.nav_steam -> {
+				switchTo = StoresFragment(Constants.Steam)
+				toolbar.title = "Steam"
+			}
+			R.id.nav_playstation -> {
+				switchTo = StoresFragment(Constants.PlayStation)
+				toolbar.title = "PlayStation"
+			}
+			R.id.nav_xbox -> {
+				switchTo = StoresFragment(Constants.Xbox)
+				toolbar.title = "Xbox"
+			}
+			R.id.nav_nintendo -> {
+				switchTo = StoresFragment(Constants.Nintendo)
+				toolbar.title = "Nintendo"
+			}
+			R.id.nav_itch -> {
+				switchTo = StoresFragment(Constants.Itch)
+				toolbar.title = "Itch"
+			}
+		}
+		if (switchTo != null) {
+			val ft = supportFragmentManager.beginTransaction()
+			ft.replace(R.id.fragment_container, switchTo)
+			while (supportFragmentManager.backStackEntryCount > 0){
+				supportFragmentManager.popBackStackImmediate()
+			}
+			ft.commit()
+		}
+		drawer_layout.closeDrawer(GravityCompat.START)
+		return true
 	}
 }

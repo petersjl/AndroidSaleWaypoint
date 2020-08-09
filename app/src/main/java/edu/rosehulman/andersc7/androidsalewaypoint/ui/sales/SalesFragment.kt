@@ -14,8 +14,7 @@ class SalesFragment : Fragment() {
 			container: ViewGroup?,
 			savedInstanceState: Bundle?
 	): View? {
-		val root = inflater.inflate(R.layout.fragment_sales, container, false)
-		val textView: TextView = root.findViewById(R.id.text_gallery)
+		val root = inflater.inflate(R.layout.fragment_games_tiles, container, false)
 		return root
 	}
 }
