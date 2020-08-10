@@ -15,6 +15,7 @@ import com.firebase.ui.auth.AuthUI
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.AddFragment
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.SignInFragment
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.Game
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameAdapter
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameFragment
@@ -30,27 +31,29 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 
 	private var auth = FirebaseAuth.getInstance()
 	private lateinit var authStateListener: FirebaseAuth.AuthStateListener
-
-	// Request code for launching the sign in Intent.
-	private val RC_SIGN_IN = 1
+	private lateinit var drawerLayout: DrawerLayout
+	private lateinit var drawerToggle: ActionBarDrawerToggle
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
+		setUpToolbar()
+		initializeListeners()
+	}
+
+	private fun setUpToolbar(){
 		val toolbar: Toolbar = findViewById(R.id.toolbar)
 		setSupportActionBar(toolbar)
 
-		val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+		drawerLayout = findViewById(R.id.drawer_layout)
 		val navView: NavigationView = findViewById(R.id.nav_view)
 
-		val toggle = ActionBarDrawerToggle(
+		drawerToggle = ActionBarDrawerToggle(
 			this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
 		)
-		drawer_layout.addDrawerListener(toggle)
-		toggle.syncState()
-		nav_view.setNavigationItemSelectedListener(this)
-
-		initializeListeners()
+		drawerLayout.addDrawerListener(drawerToggle)
+		drawerToggle.syncState()
+		navView.setNavigationItemSelectedListener(this)
 	}
 
 	override fun onStart() {
@@ -69,19 +72,15 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 			val user = auth.currentUser
 			Log.d("tag", "User is: $user")
 			if (user == null){
-				// Choose authentication providers
-				val providers = arrayListOf(AuthUI.IdpConfig.GoogleBuilder().build())
+				supportActionBar?.hide()
 
-				// Create and launch sign-in intent
-				startActivityForResult(
-					AuthUI.getInstance()
-						.createSignInIntentBuilder()
-						.setAvailableProviders(providers)
-						.setLogo(R.drawable.ic_launcher_foreground)
-						.build(),
-					RC_SIGN_IN)
+				val ft = supportFragmentManager.beginTransaction()
+				ft.replace(R.id.fragment_container, SignInFragment())
+				ft.commit()
 			}
 			else {
+				toolbar.title = "Wishlist"
+				supportActionBar?.show()
 				val ft = supportFragmentManager.beginTransaction()
 				ft.replace(R.id.fragment_container, WishlistFragment())
 				ft.commit()
