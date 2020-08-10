@@ -70,69 +70,37 @@
 
 			</LinearLayout>
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="84dp"
-				android:orientation="horizontal">
-
-				<TextView
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="6"
-					android:textColor="@color/colorTextPrimary"
-					android:gravity="center_vertical"
-					android:textSize="32sp"
-					android:text="@string/about"/>
-
-				<ImageView
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:src="@drawable/ic_baseline_expand_more_24"
-					android:tint="@color/colorTextPrimary"
-					android:paddingLeft="8dp"/>
-
-			</LinearLayout>
-
-			<!--TextView
+			<ninja.cooperstuff.expandableview.ExpandableView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:textSize="24sp"
-				android:textColor="@color/colorTextPrimary"
-				android:text="@string/temp_terraria_text"/-->
-
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="84dp"
-				android:orientation="horizontal">
+				app:title="@string/about"
+				app:startOpen="false">
 
 				<TextView
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="6"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="24sp"
 					android:textColor="@color/colorTextPrimary"
-					android:gravity="center_vertical"
-					android:textSize="32sp"
-					android:text="@string/listings"/>
+					android:text="@string/temp_terraria_text"/>
 
-				<ImageView
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1"
-					android:src="@drawable/ic_baseline_expand_less_24"
-					android:tint="@color/colorTextPrimary"
-					android:paddingLeft="8dp"/>
+			</ninja.cooperstuff.expandableview.ExpandableView>
 
-			</LinearLayout>
-
-			<androidx.recyclerview.widget.RecyclerView
-				android:id="@+id/game_listings"
+			<ninja.cooperstuff.expandableview.ExpandableView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-				android:orientation="vertical"
-				tools:listitem="@layout/item_listing"
-				tools:itemCount="9"/>
+				app:title="@string/listings"
+				app:startOpen="true">
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/game_listings"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+					android:orientation="vertical"
+					tools:listitem="@layout/item_listing"
+					tools:itemCount="4"/>
+
+			</ninja.cooperstuff.expandableview.ExpandableView>
 
 		</LinearLayout>
 
