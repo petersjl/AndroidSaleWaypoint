@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import edu.rosehulman.andersc7.androidsalewaypoint.R
-import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.Game
 
 class ListingAdapter(var context: Context) : RecyclerView.Adapter<ListingViewHolder>() {
 	private val listings = ArrayList<Listing>()
