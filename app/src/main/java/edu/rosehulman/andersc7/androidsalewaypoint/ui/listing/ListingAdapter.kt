@@ -5,13 +5,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import edu.rosehulman.andersc7.androidsalewaypoint.R
+import kotlin.math.floor
+import kotlin.random.Random
 
 class ListingAdapter(var context: Context) : RecyclerView.Adapter<ListingViewHolder>() {
 	private val listings = ArrayList<Listing>()
 
 	init {
-		for (storeType in StoreType.values()) {
-			this.listings.add(Listing(storeType, 9.99f, 0.25f))
+		for (i in 0 until 2) {
+			for (storeType in StoreType.values()) {
+				val price = floor(Random.nextFloat() * 20 * 100) / 100
+				val sale = floor(Random.nextFloat() * 100) / 100
+				this.listings.add(Listing(storeType, price, sale))
+			}
 		}
 	}
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.rosehulman.andersc7.androidsalewaypoint.R
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.ListingAdapter
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.ListingLayoutManager
 
 class GameFragment : Fragment() {
 	lateinit var root: View
@@ -27,7 +28,7 @@ class GameFragment : Fragment() {
 
 		this.adapter = ListingAdapter(this.root.context)
 		val recyclerView = this.root.findViewById<RecyclerView>(R.id.game_listings)
-		recyclerView.layoutManager = LinearLayoutManager(this.root.context)
+		recyclerView.layoutManager = ListingLayoutManager(this.root.context)
 		recyclerView.setHasFixedSize(true)
 		recyclerView.adapter = this.adapter
 
