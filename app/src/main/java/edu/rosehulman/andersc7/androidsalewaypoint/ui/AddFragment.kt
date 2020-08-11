@@ -13,7 +13,7 @@ class AddFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_add, container, false)
+        val root = inflater.inflate(R.layout.dialog_add, container, false)
         return root
     }
 }

@@ -30,4 +30,15 @@
 	<string name="store_icon">StoreIcon</string>
 	<string name="add_a_game">Add a game</string>
     <string name="sign_in">Sign In</string>
+    <string name="title">Title</string>
+	<string name="add_a_title">Add a title</string>
+	<string name="add_about">About</string>
+	<string name="describe_the_game">Describe the game...</string>
+	<string name="add_store">Store</string>
+	<string name="add_enabled">Enabled</string>
+	<string name="add_price">Price</string>
+	<string name="add_sale">Sale (%)</string>
+	<string name="default_price">$99.99</string>
+	<string name="add_price_hint">00.00</string>
+	<string name="add_store_icon">Store Icon</string>
 </resources>
