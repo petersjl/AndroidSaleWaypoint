@@ -40,5 +40,8 @@
 	<string name="add_sale">Sale (%)</string>
 	<string name="default_price">$99.99</string>
 	<string name="add_price_hint">00.00</string>
+	<string name="add_sale_hint">00</string>
 	<string name="add_store_icon">Store Icon</string>
+	<string name="developer">Developer</string>
+	<string name="add_a_developer">Add a developer</string>
 </resources>
