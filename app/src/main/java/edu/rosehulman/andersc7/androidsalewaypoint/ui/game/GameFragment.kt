@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +32,11 @@ class GameFragment : Fragment() {
 		recyclerView.layoutManager = ListingLayoutManager(this.root.context)
 		recyclerView.setHasFixedSize(true)
 		recyclerView.adapter = this.adapter
+
+		this.root.findViewById<TextView>(R.id.game_title).text = this.game?.title
+		this.root.findViewById<TextView>(R.id.game_developer).text = this.game?.developer
+		this.root.findViewById<TextView>(R.id.game_description).text = this.game?.description
+		this.game?.listings?.forEach { this.adapter.add(it) }
 
 		return this.root
 	}

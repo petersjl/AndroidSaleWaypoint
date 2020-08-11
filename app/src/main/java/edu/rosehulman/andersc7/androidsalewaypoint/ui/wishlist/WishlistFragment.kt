@@ -25,6 +25,7 @@ class WishlistFragment : Fragment() {
 		recyclerView.layoutManager = GridLayoutManager(this.root.context, 2)
 		recyclerView.setHasFixedSize(true)
 		recyclerView.adapter = this.adapter
+		this.adapter.setSnapshotListener()
 
 		return this.root
 	}
