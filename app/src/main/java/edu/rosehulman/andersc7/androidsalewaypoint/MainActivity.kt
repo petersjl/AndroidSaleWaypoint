@@ -120,10 +120,6 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				switchTo = SalesFragment()
 				toolbar.title = "What's on sale"
 			}
-			R.id.nav_add -> {
-				switchTo = AddFragment()
-				toolbar.title = "Add a game"
-			}
 			R.id.nav_log_out ->
 				auth.signOut()
 			R.id.nav_steam -> {

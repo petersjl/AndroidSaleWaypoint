@@ -9,9 +9,6 @@
 			android:id="@+id/nav_sales"
 			android:title="@string/nav_sales" />
 		<item
-			android:id="@+id/nav_add"
-			android:title="@string/add_a_game"/>
-		<item
 			android:id="@+id/nav_log_out"
 			android:title="@string/logout"/>
 <!--		<item-->
