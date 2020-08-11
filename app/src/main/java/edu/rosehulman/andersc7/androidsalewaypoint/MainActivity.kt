@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.ui.AppBarConfiguration
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.AddFragment
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.SignInFragment
@@ -37,6 +38,10 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
+		fab.setOnClickListener { view ->
+			Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+				.setAction("Action", null).show()
+		}
 		setUpToolbar()
 		initializeListeners()
 	}
