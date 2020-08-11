@@ -25,13 +25,5 @@ data class Listing(
 			listing.id = doc.id
 			return listing
 		}
-
-		fun fromReference(doc: DocumentReference): Listing {
-			var listing: Listing = Listing()
-			doc.get().addOnSuccessListener {
-				listing = Listing.fromSnapshot(it)
-			}
-			return listing
-		}
 	}
 }
