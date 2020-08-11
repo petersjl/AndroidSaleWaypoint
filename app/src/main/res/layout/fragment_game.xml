@@ -65,7 +65,7 @@
 					android:layout_height="match_parent"
 					android:layout_weight="1"
 					android:src="@drawable/ic_baseline_star_24"
-					android:tint="@color/colorFavorite"
+					app:tint="@color/colorFavorite"
 					android:paddingLeft="8dp"/>
 
 			</LinearLayout>
