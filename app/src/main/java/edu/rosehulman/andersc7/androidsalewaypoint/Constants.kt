@@ -1,7 +1,5 @@
 package edu.rosehulman.andersc7.androidsalewaypoint
 
-import com.google.android.material.tabs.TabLayout
-
 object Constants {
 	const val TAG = "ASW"
 	const val Steam = "Steam"
@@ -9,4 +7,7 @@ object Constants {
 	const val Xbox = "Xbox"
 	const val Nintendo = "Nintendo"
 	const val Itch = "Itch"
+
+	const val COLLECTION_GAMES = "Games"
+	const val COLLECTION_LISTINGS = "Listings"
 }
