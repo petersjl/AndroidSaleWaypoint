@@ -4,13 +4,11 @@ import android.os.Parcelable
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Exclude
-import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.Game
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Listing(
-//	val game: Game,
 	val store: StoreType = StoreType.STEAM,
 	val price: Float = 0f,
 	val sale: Float = 0f
