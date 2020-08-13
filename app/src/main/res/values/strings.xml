@@ -36,7 +36,7 @@
 	<string name="describe_the_game">Describe the game...</string>
 	<string name="add_store">Store</string>
 	<string name="add_enabled">Enabled</string>
-	<string name="add_price">Price</string>
+	<string name="add_price">Price ($)</string>
 	<string name="add_sale">Sale (%)</string>
 	<string name="default_price">$99.99</string>
 	<string name="add_price_hint">00.00</string>

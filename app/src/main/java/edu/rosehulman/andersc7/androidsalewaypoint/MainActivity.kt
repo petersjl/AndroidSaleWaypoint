@@ -1,10 +1,13 @@
 package edu.rosehulman.andersc7.androidsalewaypoint
 
+import android.content.DialogInterface
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -54,70 +57,143 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 		//Set options
 		builder.setTitle("Add a game")
 		val view = LayoutInflater.from(this).inflate(R.layout.dialog_add, null, false)
-		builder.setView(view)
+		val dialog: AlertDialog = builder.setView(view)
+			.setPositiveButton("Add", null)
+			.setNegativeButton(android.R.string.cancel, null)
+			.create()
 
-		builder.setPositiveButton("Add"){_, _ ->
+		dialog.show()
+		dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+
+			//Get text inputs
+			val title = view.add_title_text.text.toString()
+			val dev = view.add_developer_text.text.toString()
+			var desc = view.add_description_text.text.toString()
+
+			//Check text inputs
+			if (title == "") {message("Title cannot be empty"); return@setOnClickListener}
+			if (dev == "") {message("Developer cannot be empty"); return@setOnClickListener}
+			if (desc == "") desc = "Add a description for this game."
+
+			//Get enables
+			val onSteam = view.add_enabled_steam.isChecked
+			val onPlay = view.add_enabled_playstation.isChecked
+			val onXbox = view.add_enabled_xbox.isChecked
+			val onNin = view.add_enabled_nintendo.isChecked
+			val onItch = view.add_enabled_itch.isChecked
+
+			//Get number inputs
+			val textPriceSteam = view.add_price_steam.text.toString()
+			val textPricePlay = view.add_price_playstation.text.toString()
+			val textPriceXbox = view.add_price_xbox.text.toString()
+			val textPriceNin = view.add_price_nintendo.text.toString()
+			val textPriceItch = view.add_price_itch.text.toString()
+
+			val textSaleSteam = view.add_sale_steam.text.toString()
+			val textSalePlay = view.add_sale_playstation.text.toString()
+			val textSaleXbox = view.add_sale_xbox.text.toString()
+			val textSaleNin = view.add_sale_nintendo.text.toString()
+			val textSaleItch = view.add_sale_itch.text.toString()
+
+			//Check nulls and convert if enabled
+			val priceSteam : Double = if (onSteam) if (textPriceSteam != "") textPriceSteam.toDouble() else {message("Steam price cannot be empty"); return@setOnClickListener} else 0.0
+			val pricePlay : Double	= if (onPlay) if (textPricePlay != "") textPricePlay.toDouble() else {message("PlayStation price cannot be empty"); return@setOnClickListener} else 0.0
+			val priceXbox : Double 	= if (onXbox) if (textPriceXbox != "") textPriceXbox.toDouble() else {message("Xbox price cannot be empty"); return@setOnClickListener} else 0.0
+			val priceNin : Double 	= if (onNin) if (textPriceNin != "") textPriceNin.toDouble() else {message("Nintendo price cannot be empty"); return@setOnClickListener} else 0.0
+			val priceItch : Double 	= if (onItch) if (textPriceItch != "") textPriceItch.toDouble() else {message("Itch price cannot be empty"); return@setOnClickListener} else 0.0
+
+			val saleSteam : Double 	= if (onSteam) if (textSaleSteam != "") (textSaleSteam.toDouble() / 100.0) else {message("Steam sale cannot be empty"); return@setOnClickListener} else 0.0
+			val salePlay : Double 	= if (onPlay) if (textSalePlay != "") (textSalePlay.toDouble() / 100.0) else {message("PlayStation sale cannot be empty"); return@setOnClickListener} else 0.0
+			val saleXbox : Double 	= if (onXbox) if (textSaleXbox != "") (textSaleXbox.toDouble() / 100.0) else {message("Xbox sale cannot be empty"); return@setOnClickListener} else 0.0
+			val saleNin : Double 	= if (onNin) if (textSaleNin != "") (textSaleNin.toDouble() / 100.0) else {message("Nintendo sale cannot be empty"); return@setOnClickListener} else 0.0
+			val saleItch : Double 	= if (onItch) if (textSaleItch != "") (textSaleItch.toDouble() / 100.0) else {message("Itch sale cannot be empty"); return@setOnClickListener} else 0.0
+
+			//----Turns out these text boxes don't accept negatives
+			//Check price values
+//			if (priceSteam < 0) {message("Steam price must be positive"); return@setOnClickListener}
+//			if (pricePlay < 0) {message("PlayStation price must be positive"); return@setOnClickListener}
+//			if (priceXbox < 0) {message("Xbox price must be positive"); return@setOnClickListener}
+//			if (priceNin < 0) {message("Nintendo price must be positive"); return@setOnClickListener}
+//			if (priceItch < 0) {message("Itch price must be positive"); return@setOnClickListener}
+			
+			//Check sale upperbound
+			if (saleSteam > 1) {message("Steam sale must be less than 101"); return@setOnClickListener}
+			if (salePlay > 1) {message("PlayStation sale must be less than 101"); return@setOnClickListener}
+			if (saleXbox > 1) {message("Xbox sale must be less than 101"); return@setOnClickListener}
+			if (saleNin > 1) {message("Steam sale must be less than 101"); return@setOnClickListener}
+			if (saleItch > 1) {message("Itch sale must be less than 101"); return@setOnClickListener}
+
+			//----Turns out these text boxes don't accept negatives
+			//Check sale lowerbound
+//			if (saleSteam < 0) {message("Steam sale must be positive"); return@setOnClickListener}
+//			if (salePlay < 0) {message("PlayStation sale must be positive"); return@setOnClickListener}
+//			if (saleXbox < 0) {message("Xbox sale must be positive"); return@setOnClickListener}
+//			if (saleNin < 0) {message("Nintendo sale must be positive"); return@setOnClickListener}
+//			if (saleItch < 0) {message("Itch sale must be positive"); return@setOnClickListener}
+
 			val data = hashMapOf(
-				"title" to view.add_title_text.text.toString(),
-				"developer" to view.add_developer_text.text.toString(),
-				"description" to view.add_description_text.text.toString()
+				"title" to title,
+				"developer" to dev,
+				"description" to desc
 			)
 			gamesRef.add(data).addOnSuccessListener {doc: DocumentReference? ->
 				val listings = doc?.collection("Listings")
 
-				if(view.add_enabled_steam.isChecked) {
+				//Create whatever store listings are required
+				if(onSteam) {
 					listings?.document("steam")?.set(
 						hashMapOf(
 							"store" to "STEAM",
-							"price" to view.add_price_steam.text.toString().toDouble(),
-							"sale" to (view.add_sale_steam.text.toString().toInt() / 100.0)
+							"price" to priceSteam,
+							"sale" to saleSteam
 						)
 					)
 				}
-				if(view.add_enabled_playstation.isChecked) {
+				if(onPlay) {
 					listings?.document("playstation")?.set(
 						hashMapOf(
 							"store" to "PLAYSTATION",
-							"price" to view.add_price_playstation.text.toString().toDouble(),
-							"sale" to (view.add_price_playstation.text.toString().toInt() / 100.0)
+							"price" to pricePlay,
+							"sale" to salePlay
 						)
 					)
 				}
-				if(view.add_enabled_xbox.isChecked) {
+				if(onXbox) {
 					listings?.document("xbox")?.set(
 						hashMapOf(
 							"store" to "XBOX",
-							"price" to view.add_price_xbox.text.toString().toDouble(),
-							"sale" to (view.add_sale_xbox.text.toString().toInt() / 100.0)
+							"price" to priceXbox,
+							"sale" to saleXbox
 						)
 					)
 				}
-				if(view.add_enabled_nintendo.isChecked) {
+				if(onNin) {
 					listings?.document("nintendo")?.set(
 						hashMapOf(
 							"store" to "NINTENDO",
-							"price" to view.add_price_nintendo.text.toString().toDouble(),
-							"sale" to (view.add_price_nintendo.text.toString().toInt() / 100.0)
+							"price" to priceNin,
+							"sale" to saleNin
 						)
 					)
 				}
-				if(view.add_enabled_itch.isChecked) {
+				if(onItch) {
 					listings?.document("itch")?.set(
 						hashMapOf(
 							"store" to "ITCH",
-							"price" to view.add_price_itch.text.toString().toDouble(),
-							"sale" to (view.add_sale_itch.text.toString().toInt() / 100.0)
+							"price" to priceItch,
+							"sale" to saleItch
 						)
 					)
 				}
 
 			}
 
+			dialog.dismiss()
 		}
+	}
 
-		builder.setNegativeButton(android.R.string.cancel, null)
-
-		builder.show()
+	private fun message(m: String){
+		Toast.makeText(this, m, Toast.LENGTH_SHORT).show()
 	}
 
 	private fun setUpToolbar(){

@@ -7,7 +7,7 @@
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
     android:background="@color/colorSaleBanner">
@@ -133,6 +133,7 @@
             <EditText
                 android:id="@+id/add_sale_steam"
                 style="@style/AddTableEditText"
+                android:hint="@string/add_sale_hint"
                 android:layout_weight="15"
                 android:inputType="number"
                 android:autofillHints=""
@@ -184,6 +185,7 @@
             <EditText
                 android:id="@+id/add_sale_playstation"
                 style="@style/AddTableEditText"
+                android:hint="@string/add_sale_hint"
                 android:layout_weight="15"
                 android:inputType="number"
                 android:autofillHints=""
@@ -235,6 +237,7 @@
             <EditText
                 android:id="@+id/add_sale_xbox"
                 style="@style/AddTableEditText"
+                android:hint="@string/add_sale_hint"
                 android:layout_weight="15"
                 android:inputType="number"
                 android:autofillHints=""
@@ -286,6 +289,7 @@
             <EditText
                 android:id="@+id/add_sale_nintendo"
                 style="@style/AddTableEditText"
+                android:hint="@string/add_sale_hint"
                 android:layout_weight="15"
                 android:inputType="number"
                 android:autofillHints=""
@@ -337,6 +341,7 @@
             <EditText
                 android:id="@+id/add_sale_itch"
                 style="@style/AddTableEditText"
+                android:hint="@string/add_sale_hint"
                 android:layout_weight="15"
                 android:inputType="number"
                 android:autofillHints=""
