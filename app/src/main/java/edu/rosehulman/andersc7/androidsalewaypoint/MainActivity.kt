@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 			.setNegativeButton(android.R.string.cancel, null)
 			.create()
 
+
 		dialog.show()
 		dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
 
