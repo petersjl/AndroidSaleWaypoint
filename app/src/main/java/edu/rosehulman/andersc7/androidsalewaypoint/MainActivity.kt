@@ -24,12 +24,33 @@ import edu.rosehulman.andersc7.androidsalewaypoint.ui.SignInFragment
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.Game
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameAdapter
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameFragment
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.StoreType
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.sales.SalesFragment
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.stores.StoresFragment
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.wishlist.WishlistFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_add.view.*
+import kotlinx.android.synthetic.main.dialog_add.view.add_description_text
+import kotlinx.android.synthetic.main.dialog_add.view.add_developer_text
+import kotlinx.android.synthetic.main.dialog_add.view.add_enabled_itch
+import kotlinx.android.synthetic.main.dialog_add.view.add_enabled_nintendo
+import kotlinx.android.synthetic.main.dialog_add.view.add_enabled_playstation
+import kotlinx.android.synthetic.main.dialog_add.view.add_enabled_steam
+import kotlinx.android.synthetic.main.dialog_add.view.add_enabled_xbox
+import kotlinx.android.synthetic.main.dialog_add.view.add_price_itch
+import kotlinx.android.synthetic.main.dialog_add.view.add_price_nintendo
+import kotlinx.android.synthetic.main.dialog_add.view.add_price_playstation
+import kotlinx.android.synthetic.main.dialog_add.view.add_price_steam
+import kotlinx.android.synthetic.main.dialog_add.view.add_price_xbox
+import kotlinx.android.synthetic.main.dialog_add.view.add_sale_itch
+import kotlinx.android.synthetic.main.dialog_add.view.add_sale_nintendo
+import kotlinx.android.synthetic.main.dialog_add.view.add_sale_playstation
+import kotlinx.android.synthetic.main.dialog_add.view.add_sale_steam
+import kotlinx.android.synthetic.main.dialog_add.view.add_sale_xbox
+import kotlinx.android.synthetic.main.dialog_add.view.add_title_text
+import kotlinx.android.synthetic.main.dialog_edit.view.*
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,6 +62,8 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 	private lateinit var drawerLayout: DrawerLayout
 	private lateinit var drawerToggle: ActionBarDrawerToggle
 
+	private var currentGame: Game? = null
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
@@ -51,6 +74,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 		initializeListeners()
 	}
 
+	//Show the dialog to add a game
 	private fun showAddDialog(){
 		val builder = AlertDialog.Builder(this)
 
@@ -193,15 +217,73 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 		}
 	}
 
+	//Show the dialog to edit a game
 	private fun showEditDialog(){
-		Toast.makeText(this, "In edit mode", Toast.LENGTH_SHORT).show()
+		//Basic error check if the fab gets set incorrectly
+		if (currentGame == null){
+			message("The edit dialog tried to show without a game")
+			return
+		}else {
+			val game = currentGame!!
+
+			//Set up view
+			val view = LayoutInflater.from(this).inflate(R.layout.dialog_edit, null, false)
+			view.edit_title_text.setText(game.title)
+			view.edit_developer_text.setText(game.developer)
+			for (listing in game.listings){
+				when (listing.store){
+					StoreType.STEAM -> {
+						view.edit_enabled_steam.isChecked = true
+						view.edit_price_steam.setText(String.format("%.2f", listing.price))
+						view.edit_sale_steam.setText((listing.sale * 100).roundToInt().toString())
+					}
+					StoreType.PLAYSTATION -> {
+						view.edit_enabled_playstation.isChecked = true
+						view.edit_price_playstation.setText(String.format("%.2f", listing.price))
+						view.edit_sale_playstation.setText((listing.sale * 100).roundToInt().toString())
+					}
+					StoreType.XBOX -> {
+						view.edit_enabled_xbox.isChecked = true
+						view.edit_price_xbox.setText(String.format("%.2f", listing.price))
+						view.edit_sale_xbox.text
+						view.edit_sale_xbox.setText((listing.sale * 100).roundToInt().toString())
+					}
+					StoreType.NINTENDO -> {
+						view.edit_enabled_nintendo.isChecked = true
+						view.edit_price_nintendo.setText(String.format("%.2f", listing.price))
+						view.edit_sale_nintendo.setText((listing.sale * 100).roundToInt().toString())
+					}
+					StoreType.ITCH -> {
+						view.edit_enabled_itch.isChecked = true
+						view.edit_price_itch.setText(String.format("%.2f", listing.price))
+						view.edit_sale_itch.setText((listing.sale * 100).roundToInt().toString())
+					}
+				}
+			}
+
+
+			//Set up dialog
+			val builder = AlertDialog.Builder(this)
+			builder.setTitle("Edit this game")
+			val dialog: AlertDialog = builder.setView(view)
+				.setPositiveButton("Commit", null)
+				.setNegativeButton(android.R.string.cancel, null)
+				.create()
+
+
+			dialog.show()
+			dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+				message("Todo")
+			}
+		}
 	}
 
-
+	//Shortcut to display short Toast message
 	private fun message(m: String){
 		Toast.makeText(this, m, Toast.LENGTH_SHORT).show()
 	}
 
+	//Sets the properties of the toolbar
 	private fun setUpToolbar(){
 		val toolbar: Toolbar = findViewById(R.id.toolbar)
 		setSupportActionBar(toolbar)
@@ -227,6 +309,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 		auth.removeAuthStateListener(authStateListener)
 	}
 
+	//Set up the various listeners to be active in the activity
 	fun initializeListeners(){
 		Log.d("tag", "Initializing listeners")
 		authStateListener = FirebaseAuth.AuthStateListener { auth: FirebaseAuth ->
@@ -252,6 +335,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 			if (supportFragmentManager.backStackEntryCount == 0){
 				fab.setImageResource(R.drawable.ic_add)
 				fab.setOnClickListener { showAddDialog() }
+				currentGame = null
 			} else{
 				fab.setImageResource(R.drawable.ic_edit)
 				fab.setOnClickListener { showEditDialog() }
@@ -265,8 +349,10 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 		return true
 	}
 
+
 	override fun onGameSelected(game: Game) {
 		Log.d(Constants.TAG, "Game selected: ${game.title}")
+		currentGame = game
 		val gameFragment = GameFragment.newInstance(game)
 		val ft = this.supportFragmentManager.beginTransaction()
 		ft.replace(R.id.fragment_container, gameFragment)
