@@ -13,7 +13,7 @@ import kotlinx.android.parcel.Parcelize
 data class Game(
 	val title: String = "",
 	val developer: String = "",
-	val description: String = "",
+	var description: String = "",
 	val listings: ArrayList<Listing> = ArrayList()
 ) : Parcelable {
 	@IgnoredOnParcel

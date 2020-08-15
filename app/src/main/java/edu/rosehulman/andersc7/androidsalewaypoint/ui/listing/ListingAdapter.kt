@@ -35,4 +35,8 @@ class ListingAdapter(var context: Context) : RecyclerView.Adapter<ListingViewHol
 	fun add(listing: Listing) {
 		this.listings.add(listing)
 	}
+
+	fun clear(){
+		this.listings.clear()
+	}
 }
