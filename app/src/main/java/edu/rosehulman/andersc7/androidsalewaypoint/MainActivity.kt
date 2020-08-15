@@ -193,6 +193,11 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 		}
 	}
 
+	private fun showEditDialog(){
+		Toast.makeText(this, "In edit mode", Toast.LENGTH_SHORT).show()
+	}
+
+
 	private fun message(m: String){
 		Toast.makeText(this, m, Toast.LENGTH_SHORT).show()
 	}
@@ -229,7 +234,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 			Log.d("tag", "User is: $user")
 			if (user == null){
 				supportActionBar?.hide()
-
+				fab.hide()
 				val ft = supportFragmentManager.beginTransaction()
 				ft.replace(R.id.fragment_container, SignInFragment())
 				ft.commit()
@@ -237,9 +242,19 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 			else {
 				toolbar.title = "Wishlist"
 				supportActionBar?.show()
+				fab.show()
 				val ft = supportFragmentManager.beginTransaction()
 				ft.replace(R.id.fragment_container, WishlistFragment())
 				ft.commit()
+			}
+		}
+		supportFragmentManager.addOnBackStackChangedListener {
+			if (supportFragmentManager.backStackEntryCount == 0){
+				fab.setImageResource(R.drawable.ic_add)
+				fab.setOnClickListener { showAddDialog() }
+			} else{
+				fab.setImageResource(R.drawable.ic_edit)
+				fab.setOnClickListener { showEditDialog() }
 			}
 		}
 	}
