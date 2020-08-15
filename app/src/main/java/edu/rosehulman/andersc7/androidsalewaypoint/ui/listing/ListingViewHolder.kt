@@ -6,14 +6,9 @@ import edu.rosehulman.andersc7.androidsalewaypoint.R
 import kotlinx.android.synthetic.main.item_listing.view.*
 import kotlin.math.floor
 
-class ListingViewHolder : RecyclerView.ViewHolder {
-	var adapter: ListingAdapter
-	var view: View
-
-	constructor(itemView: View, adapter: ListingAdapter): super(itemView) {
-		this.adapter = adapter
-		this.view = itemView
-	}
+class ListingViewHolder(itemView: View, var adapter: ListingAdapter) :
+	RecyclerView.ViewHolder(itemView) {
+	var view: View = itemView
 
 	fun bind(listing: Listing) {
 		val img = when (listing.store) {
@@ -24,9 +19,9 @@ class ListingViewHolder : RecyclerView.ViewHolder {
 			StoreType.ITCH -> R.drawable.ic_itch
 		}
 		this.view.listing_store.setImageResource(img)
-		this.view.listing_price_default.text = "$" + listing.price.toString()
-		this.view.listing_sale.text = (listing.sale * 100).toInt().toString() + "% Off"
+		this.view.listing_price_default.text = String.format("$%.2f", listing.price)
+		this.view.listing_sale.text = String.format("%d%% Off",(listing.sale * 100).toInt())
 		val priceSale = floor((listing.price * (1 - listing.sale)) * 100) / 100
-		this.view.listing_price_sale.text = "$" + priceSale.toString()
+		this.view.listing_price_sale.text = String.format("$%.2f", priceSale)
 	}
 }
