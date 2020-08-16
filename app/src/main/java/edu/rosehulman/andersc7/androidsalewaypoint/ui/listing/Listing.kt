@@ -1,7 +1,6 @@
 package edu.rosehulman.andersc7.androidsalewaypoint.ui.listing
 
 import android.os.Parcelable
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.Exclude
 import kotlinx.android.parcel.IgnoredOnParcel

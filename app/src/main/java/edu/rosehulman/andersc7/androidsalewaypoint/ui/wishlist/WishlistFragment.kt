@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.rosehulman.andersc7.androidsalewaypoint.R
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameAdapter
-import java.lang.RuntimeException
 
 class WishlistFragment : Fragment() {
 	private var listener: GameAdapter.OnGameSelectedListener? = null

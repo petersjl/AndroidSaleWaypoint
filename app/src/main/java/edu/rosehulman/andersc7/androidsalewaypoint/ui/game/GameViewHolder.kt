@@ -1,18 +1,18 @@
 package edu.rosehulman.andersc7.androidsalewaypoint.ui.game
 
 import android.graphics.Color
-import android.provider.SyncStateContract
 import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.QuerySnapshot
 import edu.rosehulman.andersc7.androidsalewaypoint.Constants
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.Listing
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.StoreType
 import kotlinx.android.synthetic.main.item_game.view.*
-import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.ViewHolder(itemView) {
 	var view: View = itemView

@@ -1,7 +1,5 @@
 package edu.rosehulman.andersc7.androidsalewaypoint
 
-import android.content.DialogInterface
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,24 +30,6 @@ import edu.rosehulman.andersc7.androidsalewaypoint.ui.wishlist.WishlistFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_add.view.*
-import kotlinx.android.synthetic.main.dialog_add.view.add_description_text
-import kotlinx.android.synthetic.main.dialog_add.view.add_developer_text
-import kotlinx.android.synthetic.main.dialog_add.view.add_enabled_itch
-import kotlinx.android.synthetic.main.dialog_add.view.add_enabled_nintendo
-import kotlinx.android.synthetic.main.dialog_add.view.add_enabled_playstation
-import kotlinx.android.synthetic.main.dialog_add.view.add_enabled_steam
-import kotlinx.android.synthetic.main.dialog_add.view.add_enabled_xbox
-import kotlinx.android.synthetic.main.dialog_add.view.add_price_itch
-import kotlinx.android.synthetic.main.dialog_add.view.add_price_nintendo
-import kotlinx.android.synthetic.main.dialog_add.view.add_price_playstation
-import kotlinx.android.synthetic.main.dialog_add.view.add_price_steam
-import kotlinx.android.synthetic.main.dialog_add.view.add_price_xbox
-import kotlinx.android.synthetic.main.dialog_add.view.add_sale_itch
-import kotlinx.android.synthetic.main.dialog_add.view.add_sale_nintendo
-import kotlinx.android.synthetic.main.dialog_add.view.add_sale_playstation
-import kotlinx.android.synthetic.main.dialog_add.view.add_sale_steam
-import kotlinx.android.synthetic.main.dialog_add.view.add_sale_xbox
-import kotlinx.android.synthetic.main.dialog_add.view.add_title_text
 import kotlinx.android.synthetic.main.dialog_edit.view.*
 import kotlin.math.roundToInt
 
