@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_add.view.*
 import kotlinx.android.synthetic.main.dialog_edit.view.*
+import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, NavigationView.OnNavigationItemSelectedListener {
@@ -135,10 +136,18 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 //			if (saleNin < 0) {message("Nintendo sale must be positive"); return@setOnClickListener}
 //			if (saleItch < 0) {message("Itch sale must be positive"); return@setOnClickListener}
 
+			val stores: ArrayList<StoreType> = ArrayList()
+			if (onSteam) stores.add(StoreType.STEAM)
+			if (onPlay) stores.add(StoreType.PLAYSTATION)
+			if (onXbox) stores.add(StoreType.XBOX)
+			if (onNin) stores.add(StoreType.NINTENDO)
+			if (onItch) stores.add(StoreType.ITCH)
+
 			val data = hashMapOf(
 				"title" to title,
 				"developer" to dev,
-				"description" to desc
+				"description" to desc,
+				"stores" to stores
 			)
 			gamesRef.add(data).addOnSuccessListener {doc: DocumentReference? ->
 				val listings = doc?.collection("Listings")
@@ -306,9 +315,11 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				)
 				gamesRef.document(game.id).set(data, SetOptions.merge())
 
+				val stores: ArrayList<StoreType> = ArrayList()
 				//Set store listings
 				val listings = gamesRef.document(game.id).collection("Listings")
 				if(onSteam) {
+					stores.add(StoreType.STEAM)
 					listings.document("steam").set(
 						hashMapOf(
 							"store" to "STEAM",
@@ -320,6 +331,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 					listings.document("steam").delete()
 				}
 				if(onPlay) {
+					stores.add(StoreType.PLAYSTATION)
 					listings.document("playstation").set(
 						hashMapOf(
 							"store" to "PLAYSTATION",
@@ -331,6 +343,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 					listings.document("playstation").delete()
 				}
 				if(onXbox) {
+					stores.add(StoreType.XBOX)
 					listings.document("xbox").set(
 						hashMapOf(
 							"store" to "XBOX",
@@ -342,6 +355,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 					listings.document("xbox").delete()
 				}
 				if(onNin) {
+					stores.add(StoreType.NINTENDO)
 					listings.document("nintendo").set(
 						hashMapOf(
 							"store" to "NINTENDO",
@@ -353,6 +367,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 					listings.document("nintendo").delete()
 				}
 				if(onItch) {
+					stores.add(StoreType.ITCH)
 					listings.document("itch").set(
 						hashMapOf(
 							"store" to "ITCH",
@@ -363,6 +378,8 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				}else{
 					listings.document("itch").delete()
 				}
+
+				gamesRef.document(game.id).set(hashMapOf("stores" to stores), SetOptions.merge())
 
 				dialog.dismiss()
 			}
