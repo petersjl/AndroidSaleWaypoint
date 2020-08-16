@@ -10,4 +10,6 @@ object Constants {
 
 	const val COLLECTION_GAMES = "Games"
 	const val COLLECTION_LISTINGS = "Listings"
+	const val COLLECTION_USERS = "Users"
+	const val FIELD_WISHLIST = "wishlist"
 }

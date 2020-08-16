@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,19 +20,42 @@ import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.ListingLayoutManag
 class GameFragment : Fragment() {
 	lateinit var root: View
 	private var game: Game? = null
+	private var user: String? = null
+	private var wishlist: Boolean = false
+	private lateinit var wishlistView: ImageView
 	lateinit var adapter: ListingAdapter
 
 	lateinit var gameRef: DocumentReference
 	private var gameListener: ListenerRegistration? = null
 	private var listingsListener: ListenerRegistration? = null
 
+	lateinit var userRef: DocumentReference
+	lateinit var userGameReference: DocumentReference
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		arguments?.let {
 			this.game = it.getParcelable(ARG_GAME)
+			this.user = it.getString(ARG_USER)
 		}
 
-		this.gameRef = FirebaseFirestore.getInstance().collection("Games").document(this.game!!.id)
+		this.gameRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_GAMES).document(this.game!!.id)
+		this.userRef = FirebaseFirestore.getInstance()
+			.collection(Constants.COLLECTION_USERS)
+			.document(this.user!!)
+		this.userGameReference = this.userRef.collection(Constants.COLLECTION_GAMES).document(this.game!!.id)
+		this.userGameReference.get().addOnSuccessListener {
+			if (it.exists()) this.wishlist = it.get(Constants.FIELD_WISHLIST) as Boolean
+			else {
+				this.userGameReference.set(mapOf(Constants.FIELD_WISHLIST to false))
+				this.wishlist = false
+			}
+			this.updateWishlistView()
+			this.userGameReference.addSnapshotListener { doc: DocumentSnapshot?, error: FirebaseFirestoreException? ->
+				this.wishlist = doc!!.get(Constants.FIELD_WISHLIST) as Boolean
+				this.updateWishlistView()
+			}
+		}
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,8 +69,21 @@ class GameFragment : Fragment() {
 
 		this.root.findViewById<TextView>(R.id.game_title).text = this.game?.title
 		this.root.findViewById<TextView>(R.id.game_developer).text = this.game?.developer
+		this.root.findViewById<TextView>(R.id.game_description).text = this.game?.description
+		this.game?.listings?.forEach { this.adapter.add(it) }
+		this.wishlistView = this.root.findViewById(R.id.game_wishlist)
+		this.wishlistView.setOnClickListener {
+			this.userGameReference.set(mapOf("wishlist" to !wishlist), SetOptions.merge())
+		}
 
 		return this.root
+	}
+
+	private fun updateWishlistView() {
+		this.wishlistView.setColorFilter(this.root.context.getColor(
+			if (wishlist) R.color.colorWishlist
+			else R.color.colorNotWishlist
+		))
 	}
 
 	override fun onResume() {
@@ -60,7 +97,7 @@ class GameFragment : Fragment() {
 			}
 		}
 
-		listingsListener = gameRef.collection("Listings").addSnapshotListener {listings: QuerySnapshot?, error: FirebaseFirestoreException? ->
+		listingsListener = gameRef.collection(Constants.COLLECTION_LISTINGS).addSnapshotListener {listings: QuerySnapshot?, error: FirebaseFirestoreException? ->
 			if (error != null) {
 				Log.d(Constants.TAG, error.toString())
 			}else {
@@ -86,11 +123,13 @@ class GameFragment : Fragment() {
 
 	companion object {
 		private const val ARG_GAME = "game"
+		private const val ARG_USER = "user"
 
 		@JvmStatic
-		fun newInstance(game: Game) = GameFragment().apply {
+		fun newInstance(game: Game, userID: String) = GameFragment().apply {
 			arguments = Bundle().apply {
 				putParcelable(ARG_GAME, game)
+				putString(ARG_USER, userID)
 			}
 		}
 	}

@@ -466,7 +466,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 	override fun onGameSelected(game: Game) {
 		Log.d(Constants.TAG, "Game selected: ${game.title}")
 		currentGame = game
-		val gameFragment = GameFragment.newInstance(game)
+		val gameFragment = GameFragment.newInstance(game, auth.currentUser!!.uid)
 		val ft = this.supportFragmentManager.beginTransaction()
 		ft.replace(R.id.fragment_container, gameFragment)
 		ft.addToBackStack("game")
