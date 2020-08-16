@@ -24,8 +24,8 @@ data class Game(
 		const val KEY_UID = "uid"
 
 		fun fromSnapshot(doc: DocumentSnapshot): Game {
-			val game = Game(doc["title"] as String, doc["developer"] as String, doc["description"] as String)
-			doc.reference.collection("Listings").get().addOnSuccessListener {
+			val game = Game(doc[Constants.FIELD_TITLE] as String, doc[Constants.FIELD_DEVELOPER] as String, doc[Constants.FIELD_DESCRIPTION] as String)
+			doc.reference.collection(Constants.COLLECTION_LISTINGS).get().addOnSuccessListener {
 				for (listing in it) {
 					game.listings.add(Listing.fromSnapshot(listing))
 					Log.d(Constants.TAG, "test" + game.listings.size.toString())

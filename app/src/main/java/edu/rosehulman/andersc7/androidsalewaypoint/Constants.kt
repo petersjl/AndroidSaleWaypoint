@@ -9,7 +9,12 @@ object Constants {
 	const val Itch = "Itch"
 
 	const val COLLECTION_GAMES = "Games"
+	const val FIELD_TITLE = "title"
+	const val FIELD_DEVELOPER = "developer"
+	const val FIELD_DESCRIPTION = "description"
+
 	const val COLLECTION_LISTINGS = "Listings"
+
 	const val COLLECTION_USERS = "Users"
 	const val FIELD_WISHLIST = "wishlist"
 }

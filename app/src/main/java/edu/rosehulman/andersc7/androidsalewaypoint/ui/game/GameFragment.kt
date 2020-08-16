@@ -92,7 +92,7 @@ class GameFragment : Fragment() {
 			if (error != null) {
 				Log.d(Constants.TAG, error.toString())
 			}else{
-				game?.description = doc?.get("description") as String
+				game?.description = doc?.get(Constants.FIELD_DESCRIPTION) as String
 				this.root.findViewById<TextView>(R.id.game_description).text = this.game?.description
 			}
 		}
