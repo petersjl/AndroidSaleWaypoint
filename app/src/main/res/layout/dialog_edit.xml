@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+	    android:orientation="vertical"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:padding="10dp"
         android:background="@color/colorForeground">
@@ -24,34 +25,38 @@
             style="@style/AddHeaders"
             android:textSize="20sp"
             android:textColor="@color/colorSale"
-            android:text="@string/developer"
-            android:layout_below="@id/edit_title"/>
+            android:text="@string/developer" />
 
         <Space
             android:id="@+id/extra_space"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_below="@id/edit_developer"/>
+            android:layout_height="20dp" />
 
-        <TextView
-            android:id="@+id/edit_description"
-            style="@style/AddHeaders"
-            android:text="@string/add_about"
-            android:layout_below="@id/extra_space"/>
+        <ninja.cooperstuff.expandableview.ExpandableView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startOpen="false"
+            app:title="@string/add_about">
 
-        <EditText
-            android:id="@+id/edit_description_text"
-            style="@style/AddEditText"
-            android:layout_below="@id/edit_description"
-            android:paddingTop="10dp"
-            android:hint="@string/describe_the_game"
-            android:autofillHints=""
-            android:inputType="textMultiLine|textCapSentences"/>
+            <EditText
+                android:id="@+id/edit_description_text"
+                style="@style/AddEditText"
+                android:paddingTop="10dp"
+                android:hint="@string/describe_the_game"
+                android:autofillHints=""
+                android:inputType="textMultiLine|textCapSentences"/>
+
+        </ninja.cooperstuff.expandableview.ExpandableView>
+
+        <ninja.cooperstuff.expandableview.ExpandableView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startOpen="true"
+            app:title="@string/listings">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_description_text"
             android:orientation="vertical">
 
             <!--Table Headers-->
@@ -342,5 +347,8 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+        </ninja.cooperstuff.expandableview.ExpandableView>
+
+    </LinearLayout>
+
 </ScrollView>
