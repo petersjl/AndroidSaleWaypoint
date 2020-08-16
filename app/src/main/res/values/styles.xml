@@ -17,7 +17,7 @@
 	<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 	<style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-		<item name="android:background">@color/colorSaleBanner</item>
+		<item name="android:background">@color/colorForeground</item>
 <!--		<item name="android:titleTextColor">@color/colorTextPrimary</item>-->
 	</style>
 

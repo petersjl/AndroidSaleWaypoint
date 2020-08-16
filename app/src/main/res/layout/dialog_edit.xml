@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:padding="10dp"
-        android:background="@color/colorSaleBanner">
+        android:background="@color/colorForeground">
 
 
         <TextView

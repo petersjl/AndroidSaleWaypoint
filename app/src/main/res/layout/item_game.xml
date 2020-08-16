@@ -86,6 +86,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
 				android:background="@color/colorSaleBannerTextBackground"
+				android:textColor="@color/colorTextSecondary"
 				android:paddingHorizontal="4dp"
 				android:text="$9.99"/>
 

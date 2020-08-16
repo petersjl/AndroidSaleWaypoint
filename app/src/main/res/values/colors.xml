@@ -5,11 +5,12 @@
 	<color name="colorAccent">#03DAC5</color>
 
 	<color name="colorBackground">#202125</color>
+	<color name="colorForeground">#546E7A</color>
 	<color name="colorTextPrimary">#EEEEEE</color>
 	<color name="colorTextSecondary">#888888</color>
 	<color name="colorSale">#00A273</color>
 	<color name="colorWishlist">#F2C94C</color>
 	<color name="colorNotWishlist">#455A64</color>
-	<color name="colorSaleBanner">#546E7A</color>
-	<color name="colorSaleBannerTextBackground">#455A64</color>
+	<color name="colorSaleBanner">#34515e</color>
+	<color name="colorSaleBannerTextBackground">#29434e</color>
 </resources>
