@@ -67,7 +67,7 @@
 				android:contentDescription="@string/store_icon" />
 
 		</LinearLayout>
-	<!--
+
 		<LinearLayout
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
@@ -75,6 +75,16 @@
 			android:layout_alignParentEnd="true"
 			android:padding="2dp">
 
+			<ImageView
+				android:visibility="gone"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				app:layout_constraintTop_toTopOf="@id/tile_image_background"
+				app:layout_constraintEnd_toEndOf="@id/tile_image_background"
+				android:src="@drawable/ic_baseline_star_24"
+				app:tint="@color/colorWishlist"/>
+
+<!--
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
@@ -89,9 +99,9 @@
 				android:textColor="@color/colorTextSecondary"
 				android:paddingHorizontal="4dp"
 				android:text="$9.99"/>
+-->
 
 		</LinearLayout>
-	-->
 
 	</RelativeLayout>
 
