@@ -12,6 +12,7 @@ object Constants {
 	const val FIELD_TITLE = "title"
 	const val FIELD_DEVELOPER = "developer"
 	const val FIELD_DESCRIPTION = "description"
+	const val FIELD_STORES = "stores"
 
 	const val COLLECTION_LISTINGS = "Listings"
 
