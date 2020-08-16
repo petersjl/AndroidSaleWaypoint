@@ -245,7 +245,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 
 
 			//Set up dialog
-			val builder = AlertDialog.Builder(this)
+			val builder = AlertDialog.Builder(this, R.style.AlertDialog)
 			builder.setTitle("Edit this game")
 			val dialog: AlertDialog = builder.setView(view)
 				.setPositiveButton("Commit", null)
