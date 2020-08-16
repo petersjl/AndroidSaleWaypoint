@@ -142,13 +142,16 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 			if (onXbox) stores.add(StoreType.XBOX)
 			if (onNin) stores.add(StoreType.NINTENDO)
 			if (onItch) stores.add(StoreType.ITCH)
+			val sale = (saleSteam > 0 || salePlay > 0 || saleXbox > 0 || saleNin > 0 || saleItch > 0)
 
 			val data = hashMapOf(
-				"title" to title,
-				"developer" to dev,
-				"description" to desc,
-				"stores" to stores
+				Constants.FIELD_TITLE to title,
+				Constants.FIELD_DEVELOPER to dev,
+				Constants.FIELD_DESCRIPTION to desc,
+				Constants.FIELD_STORES to stores,
+				Constants.FIELD_SALE to sale
 			)
+			
 			gamesRef.add(data).addOnSuccessListener {doc: DocumentReference? ->
 				val listings = doc?.collection("Listings")
 
@@ -309,17 +312,23 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				if (saleNin > 1) {message("Steam sale must be less than 101"); return@setOnClickListener}
 				if (saleItch > 1) {message("Itch sale must be less than 101"); return@setOnClickListener}
 
-				//Set new description
-				val data = hashMapOf(
-					"description" to desc
-				)
-				gamesRef.document(game.id).set(data, SetOptions.merge())
-
 				val stores: ArrayList<StoreType> = ArrayList()
+				if (onSteam) stores.add(StoreType.STEAM)
+				if (onPlay) stores.add(StoreType.PLAYSTATION)
+				if (onXbox) stores.add(StoreType.XBOX)
+				if (onNin) stores.add(StoreType.NINTENDO)
+				if (onItch) stores.add(StoreType.ITCH)
+
+				val sale = (saleSteam > 0 || salePlay > 0 || saleXbox > 0 || saleNin > 0 || saleItch > 0)
+				gamesRef.document(game.id).set(hashMapOf(
+					Constants.FIELD_DESCRIPTION to desc,
+					Constants.FIELD_STORES to stores,
+					Constants.FIELD_SALE to sale
+				), SetOptions.merge())
+
 				//Set store listings
 				val listings = gamesRef.document(game.id).collection("Listings")
 				if(onSteam) {
-					stores.add(StoreType.STEAM)
 					listings.document("steam").set(
 						hashMapOf(
 							"store" to "STEAM",
@@ -331,7 +340,6 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 					listings.document("steam").delete()
 				}
 				if(onPlay) {
-					stores.add(StoreType.PLAYSTATION)
 					listings.document("playstation").set(
 						hashMapOf(
 							"store" to "PLAYSTATION",
@@ -343,7 +351,6 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 					listings.document("playstation").delete()
 				}
 				if(onXbox) {
-					stores.add(StoreType.XBOX)
 					listings.document("xbox").set(
 						hashMapOf(
 							"store" to "XBOX",
@@ -355,7 +362,6 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 					listings.document("xbox").delete()
 				}
 				if(onNin) {
-					stores.add(StoreType.NINTENDO)
 					listings.document("nintendo").set(
 						hashMapOf(
 							"store" to "NINTENDO",
@@ -367,7 +373,6 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 					listings.document("nintendo").delete()
 				}
 				if(onItch) {
-					stores.add(StoreType.ITCH)
 					listings.document("itch").set(
 						hashMapOf(
 							"store" to "ITCH",
@@ -378,8 +383,6 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				}else{
 					listings.document("itch").delete()
 				}
-
-				gamesRef.document(game.id).set(hashMapOf("stores" to stores), SetOptions.merge())
 
 				dialog.dismiss()
 			}
