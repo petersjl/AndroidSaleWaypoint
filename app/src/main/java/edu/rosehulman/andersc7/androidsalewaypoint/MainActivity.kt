@@ -20,13 +20,11 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.SignInFragment
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.browse.*
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.Game
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameAdapter
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.game.GameFragment
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.StoreType
-import edu.rosehulman.andersc7.androidsalewaypoint.ui.sales.SalesFragment
-import edu.rosehulman.andersc7.androidsalewaypoint.ui.stores.StoresFragment
-import edu.rosehulman.andersc7.androidsalewaypoint.ui.wishlist.WishlistFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_add.view.*
@@ -416,11 +414,14 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				ft.commit()
 			}
 			else {
-				toolbar.title = "Wishlist"
+				toolbar.title = "All Games"
 				supportActionBar?.show()
 				fab.show()
 				val ft = supportFragmentManager.beginTransaction()
-				ft.replace(R.id.fragment_container, WishlistFragment())
+				ft.replace(R.id.fragment_container,
+//					WishlistFragment()
+					BrowseFragment(this.auth.currentUser!!.uid, FilterAll())
+				)
 				ft.commit()
 			}
 		}
@@ -454,43 +455,47 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 	}
 
 	override fun onNavigationItemSelected(item: MenuItem): Boolean {
-		var switchTo: Fragment? = null
+		var filter: GameFilter? = null
 		// Handle navigation view item clicks here.
 		when (item.itemId) {
+			R.id.nav_all -> {
+				filter = FilterAll()
+				toolbar.title = "All Games"
+			}
 			R.id.nav_wishlist -> {
-				switchTo = WishlistFragment()
+				filter = FilterWishlist()
 				toolbar.title = "Wishlist"
 			}
 			R.id.nav_sales -> {
-				switchTo = SalesFragment()
+				filter = FilterSale()
 				toolbar.title = "What's on sale"
 			}
 			R.id.nav_log_out ->
 				auth.signOut()
 			R.id.nav_steam -> {
-				switchTo = StoresFragment(Constants.Steam)
+				filter = FilterStore(StoreType.STEAM)
 				toolbar.title = "Steam"
 			}
 			R.id.nav_playstation -> {
-				switchTo = StoresFragment(Constants.PlayStation)
+				filter = FilterStore(StoreType.PLAYSTATION)
 				toolbar.title = "PlayStation"
 			}
 			R.id.nav_xbox -> {
-				switchTo = StoresFragment(Constants.Xbox)
+				filter = FilterStore(StoreType.XBOX)
 				toolbar.title = "Xbox"
 			}
 			R.id.nav_nintendo -> {
-				switchTo = StoresFragment(Constants.Nintendo)
+				filter = FilterStore(StoreType.NINTENDO)
 				toolbar.title = "Nintendo"
 			}
 			R.id.nav_itch -> {
-				switchTo = StoresFragment(Constants.Itch)
+				filter = FilterStore(StoreType.ITCH)
 				toolbar.title = "Itch"
 			}
 		}
-		if (switchTo != null) {
+		if (filter != null) {
 			val ft = supportFragmentManager.beginTransaction()
-			ft.replace(R.id.fragment_container, switchTo)
+			ft.replace(R.id.fragment_container, BrowseFragment(this.auth.currentUser!!.uid, filter))
 			while (supportFragmentManager.backStackEntryCount > 0){
 				supportFragmentManager.popBackStackImmediate()
 			}

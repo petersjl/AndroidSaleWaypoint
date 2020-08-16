@@ -11,11 +11,11 @@
 	<string name="listings">Price listings</string>
 	<string name="temp_terraria_text">Dig, Fight, Explore, Build: The very world is at your fingertips as you fight for survival, fortune, and glory. Will you delve deep into cavernous expanses in search of treasure and raw materials with which to craft ever-evolving gear, machinery, and aesthetics? Perhaps you will choose instead to seek out ever-greater foes to test your mettle in combat? Maybe you will decide to construct your own city to house the host of mysterious allies you may encounter along your travels?</string>
 
-
 	<string name="menu_home">Home</string>
 	<string name="menu_gallery">Gallery</string>
 	<string name="menu_slideshow">Slideshow</string>
 
+	<string name="nav_all">All Games</string>
     <string name="nav_wishlist">Wishlist</string>
 	<string name="nav_sales">What\'s on sale</string>
 	<string name="nav_search">Search</string>

@@ -39,9 +39,7 @@ class GameFragment : Fragment() {
 		}
 
 		this.gameRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_GAMES).document(this.game!!.id)
-		this.userRef = FirebaseFirestore.getInstance()
-			.collection(Constants.COLLECTION_USERS)
-			.document(this.user!!)
+		this.userRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS).document(this.user!!)
 		this.userGameReference = this.userRef.collection(Constants.COLLECTION_GAMES).document(this.game!!.id)
 		this.userGameReference.get().addOnSuccessListener {
 			if (it.exists()) this.wishlist = it.get(Constants.FIELD_WISHLIST) as Boolean

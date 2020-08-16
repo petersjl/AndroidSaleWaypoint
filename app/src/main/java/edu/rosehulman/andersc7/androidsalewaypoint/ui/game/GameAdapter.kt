@@ -11,19 +11,22 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
 import edu.rosehulman.andersc7.androidsalewaypoint.Constants
 import edu.rosehulman.andersc7.androidsalewaypoint.R
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.browse.GameFilter
 
-class GameAdapter(var context: Context, var listener: OnGameSelectedListener?) : RecyclerView.Adapter<GameViewHolder>() {
+class GameAdapter(var context: Context, val userID: String, val filter: GameFilter, var listener: OnGameSelectedListener?) : RecyclerView.Adapter<GameViewHolder>() {
 	private val games = ArrayList<Game>()
 
-	private val gamesRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_GAMES);
 	private var listenerRegistration: ListenerRegistration? = null
+	private val gamesRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_GAMES)
+	private val userRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS).document(userID)
+	private val sortedRef = filter.getSorted(this.gamesRef, this.userRef)
 
 	fun setSnapshotListener() {
 		this.listenerRegistration?.remove()
 		this.games.clear()
 		this.notifyDataSetChanged()
 
-		this.listenerRegistration = this.gamesRef.addSnapshotListener { querySnapshot, e ->
+		this.listenerRegistration = this.sortedRef.addSnapshotListener { querySnapshot, e ->
 			if (e != null) Log.w(Constants.TAG, "Listen error: $e")
 			else this.processSnapshotChanges(querySnapshot!!)
 		}
