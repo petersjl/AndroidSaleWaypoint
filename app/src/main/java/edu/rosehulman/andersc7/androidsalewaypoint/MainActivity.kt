@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 
 	//Show the dialog to add a game
 	private fun showAddDialog(){
-		val builder = AlertDialog.Builder(this)
+		val builder = AlertDialog.Builder(this, R.style.AlertDialog)
 
 		//Set options
 		builder.setTitle("Add a game")
