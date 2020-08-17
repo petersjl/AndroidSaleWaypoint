@@ -483,6 +483,16 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 		return true
 	}
 
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		return when (item.itemId) {
+			R.id.app_bar_logout -> {
+				auth.signOut()
+				true
+			}
+			else -> super.onOptionsItemSelected(item)
+		}
+	}
+
 	override fun onSearch(text: String) {
 		this.browseFragment?.adapter!!.onSearch(text)
 	}

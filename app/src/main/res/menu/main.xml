@@ -8,5 +8,10 @@
 		app:actionViewClass="android.widget.SearchView"
 		app:showAsAction="ifRoom"
 		android:title="@string/action_search"/>
+	<item
+		android:id="@+id/app_bar_logout"
+		android:orderInCategory="150"
+		android:title="@string/logout"
+		app:showAsAction="never"/>
 
 </menu>
