@@ -8,9 +8,5 @@
 		app:actionViewClass="android.widget.SearchView"
 		app:showAsAction="ifRoom"
 		android:title="@string/action_search"/>
-	<item
-		android:id="@+id/action_settings"
-		android:orderInCategory="101"
-		android:title="@string/action_settings"
-		app:showAsAction="never" />
+
 </menu>
