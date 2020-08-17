@@ -116,11 +116,11 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 			val priceNin : Double 	= if (onNin) if (textPriceNin != "") textPriceNin.toDouble() else {message("Nintendo price cannot be empty"); return@setOnClickListener} else 0.0
 			val priceItch : Double 	= if (onItch) if (textPriceItch != "") textPriceItch.toDouble() else {message("Itch price cannot be empty"); return@setOnClickListener} else 0.0
 
-			val saleSteam : Double 	= if (onSteam) if (textSaleSteam != "") (textSaleSteam.toDouble() / 100.0) else {message("Steam sale cannot be empty"); return@setOnClickListener} else 0.0
-			val salePlay : Double 	= if (onPlay) if (textSalePlay != "") (textSalePlay.toDouble() / 100.0) else {message("PlayStation sale cannot be empty"); return@setOnClickListener} else 0.0
-			val saleXbox : Double 	= if (onXbox) if (textSaleXbox != "") (textSaleXbox.toDouble() / 100.0) else {message("Xbox sale cannot be empty"); return@setOnClickListener} else 0.0
-			val saleNin : Double 	= if (onNin) if (textSaleNin != "") (textSaleNin.toDouble() / 100.0) else {message("Nintendo sale cannot be empty"); return@setOnClickListener} else 0.0
-			val saleItch : Double 	= if (onItch) if (textSaleItch != "") (textSaleItch.toDouble() / 100.0) else {message("Itch sale cannot be empty"); return@setOnClickListener} else 0.0
+			val saleSteam : Double 	= if (onSteam) if (textSaleSteam != "") (textSaleSteam.toDouble() / 100.0) else 0.0 else 0.0
+			val salePlay : Double 	= if (onPlay) if (textSalePlay != "") (textSalePlay.toDouble() / 100.0) else 0.0 else 0.0
+			val saleXbox : Double 	= if (onXbox) if (textSaleXbox != "") (textSaleXbox.toDouble() / 100.0) else 0.0 else 0.0
+			val saleNin : Double 	= if (onNin) if (textSaleNin != "") (textSaleNin.toDouble() / 100.0) else 0.0 else 0.0
+			val saleItch : Double 	= if (onItch) if (textSaleItch != "") (textSaleItch.toDouble() / 100.0) else 0.0 else 0.0
 
 			//----Turns out these text boxes don't accept negatives
 			//Check price values
@@ -313,11 +313,11 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				val priceNin : Double 	= if (onNin) if (textPriceNin != "") textPriceNin.toDouble() else {message("Nintendo price cannot be empty"); return@setOnClickListener} else 0.0
 				val priceItch : Double 	= if (onItch) if (textPriceItch != "") textPriceItch.toDouble() else {message("Itch price cannot be empty"); return@setOnClickListener} else 0.0
 
-				val saleSteam : Double 	= if (onSteam) if (textSaleSteam != "") (textSaleSteam.toDouble() / 100.0) else {message("Steam sale cannot be empty"); return@setOnClickListener} else 0.0
-				val salePlay : Double 	= if (onPlay) if (textSalePlay != "") (textSalePlay.toDouble() / 100.0) else {message("PlayStation sale cannot be empty"); return@setOnClickListener} else 0.0
-				val saleXbox : Double 	= if (onXbox) if (textSaleXbox != "") (textSaleXbox.toDouble() / 100.0) else {message("Xbox sale cannot be empty"); return@setOnClickListener} else 0.0
-				val saleNin : Double 	= if (onNin) if (textSaleNin != "") (textSaleNin.toDouble() / 100.0) else {message("Nintendo sale cannot be empty"); return@setOnClickListener} else 0.0
-				val saleItch : Double 	= if (onItch) if (textSaleItch != "") (textSaleItch.toDouble() / 100.0) else {message("Itch sale cannot be empty"); return@setOnClickListener} else 0.0
+				val saleSteam : Double 	= if (onSteam) if (textSaleSteam != "") (textSaleSteam.toDouble() / 100.0) else 0.0 else 0.0
+				val salePlay : Double 	= if (onPlay) if (textSalePlay != "") (textSalePlay.toDouble() / 100.0) else 0.0 else 0.0
+				val saleXbox : Double 	= if (onXbox) if (textSaleXbox != "") (textSaleXbox.toDouble() / 100.0) else 0.0 else 0.0
+				val saleNin : Double 	= if (onNin) if (textSaleNin != "") (textSaleNin.toDouble() / 100.0) else 0.0 else 0.0
+				val saleItch : Double 	= if (onItch) if (textSaleItch != "") (textSaleItch.toDouble() / 100.0) else 0.0 else 0.0
 
 				//Check sale upperbound
 				if (saleSteam > 1) {message("Steam sale must be less than 101"); return@setOnClickListener}
