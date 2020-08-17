@@ -3,6 +3,7 @@ package edu.rosehulman.andersc7.androidsalewaypoint.ui.game
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.AsyncTask
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -25,6 +26,8 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 	var view: View = itemView
 	var listingsListener: ListenerRegistration? = null
 	lateinit var textCover: TextView
+	var imageTask: AsyncTask<String, Void, Bitmap>? = null
+	var imageTaskRunning = false
 
 	fun bind(game: Game) {
 		this.itemView.setOnClickListener {
@@ -36,7 +39,11 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 		this.itemView.findViewById<ImageView>(R.id.item_game_wishlist).visibility = visibility
 		this.textCover.setText(R.string.loading)
 		this.textCover.visibility = View.VISIBLE
-		if (game.image != "") ImageTask(this).execute(game.image)
+		if (imageTaskRunning) this.imageTask?.cancel(true)
+		if (game.image != "") {
+			this.imageTask = ImageTask(this).execute(game.image)
+			this.imageTaskRunning = true
+		}
 		else this.textCover.text = game.title
 		listingsListener = FirebaseFirestore
 			.getInstance()
@@ -115,5 +122,6 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 	override fun onImageLoaded(bitmap: Bitmap?) {
 		this.textCover.visibility = View.GONE
 		this.itemView.findViewById<ImageView>(R.id.tile_image_background).setImageBitmap(bitmap)
+		this.imageTaskRunning = false
 	}
 }
