@@ -38,6 +38,23 @@
             android:textColor="@color/colorSale"
             android:text="@string/developer" />
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:id="@+id/edit_image"
+            style="@style/AddHeaders"
+            android:text="@string/image"/>
+
+        <EditText
+            android:id="@+id/edit_image_text"
+            style="@style/AddEditText"
+            android:paddingTop="10dp"
+            android:hint="@string/image_url"
+            android:inputType="textUri"
+            tools:ignore="Autofill" />
+
         <ninja.cooperstuff.expandableview.ExpandableView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

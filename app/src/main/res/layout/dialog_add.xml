@@ -51,6 +51,19 @@
             android:inputType="textCapWords"
             tools:ignore="Autofill" />
 
+        <TextView
+            android:id="@+id/add_image"
+            style="@style/AddHeaders"
+            android:text="@string/image"/>
+
+        <EditText
+            android:id="@+id/add_image_text"
+            style="@style/AddEditText"
+            android:paddingTop="10dp"
+            android:hint="@string/image_url"
+            android:inputType="textUri"
+            tools:ignore="Autofill" />
+
         <ninja.cooperstuff.expandableview.ExpandableView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
