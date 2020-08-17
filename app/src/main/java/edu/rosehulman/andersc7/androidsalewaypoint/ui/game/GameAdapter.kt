@@ -29,7 +29,7 @@ class GameAdapter(var context: Context, val userID: String, val filter: GameFilt
 		this.games.clear()
 		this.notifyDataSetChanged()
 
-		this.listenerRegistration = this.searchRef.addSnapshotListener { querySnapshot, e ->
+		this.listenerRegistration = this.searchRef.orderBy(Constants.FIELD_TITLE, Query.Direction.DESCENDING).addSnapshotListener { querySnapshot, e ->
 			if (e != null) Log.w(Constants.TAG, "Listen error: $e")
 			else this.processSnapshotChanges(querySnapshot!!)
 		}
