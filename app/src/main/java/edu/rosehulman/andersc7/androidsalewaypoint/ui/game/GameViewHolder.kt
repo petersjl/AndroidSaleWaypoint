@@ -3,6 +3,7 @@ package edu.rosehulman.andersc7.androidsalewaypoint.ui.game
 import android.graphics.Color
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -10,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
 import edu.rosehulman.andersc7.androidsalewaypoint.Constants
+import edu.rosehulman.andersc7.androidsalewaypoint.R
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.Listing
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.StoreType
 import kotlinx.android.synthetic.main.item_game.view.*
@@ -23,6 +25,8 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 			this.adapter.selectGameAt(this.adapterPosition)
 		}
 		setIconsBlack()
+		val visibility = if (game.wishlist) { View.VISIBLE } else { View.GONE }
+		this.itemView.findViewById<ImageView>(R.id.item_game_wishlist).visibility = visibility
 		Log.d(Constants.TAG, game.listings.toString())
 		listingsListener = FirebaseFirestore
 			.getInstance()

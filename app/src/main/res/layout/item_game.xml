@@ -76,6 +76,7 @@
 			android:padding="2dp">
 
 			<ImageView
+				android:id="@+id/item_game_wishlist"
 				android:visibility="gone"
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"

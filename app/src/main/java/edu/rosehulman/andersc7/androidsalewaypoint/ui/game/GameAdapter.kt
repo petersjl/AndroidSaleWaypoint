@@ -34,7 +34,7 @@ class GameAdapter(var context: Context, val userID: String, val filter: GameFilt
 
 	private fun processSnapshotChanges(querySnapshot: QuerySnapshot) {
 		for (change in querySnapshot.documentChanges) {
-			val game = Game.fromSnapshot(change.document)
+			val game = Game.fromSnapshot(change.document, this.userID)
 			when (change.type) {
 				DocumentChange.Type.ADDED -> {
 					this.games.add(0, game)

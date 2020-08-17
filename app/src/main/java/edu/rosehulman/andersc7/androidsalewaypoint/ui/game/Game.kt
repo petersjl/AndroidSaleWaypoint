@@ -19,12 +19,14 @@ data class Game(
 	@IgnoredOnParcel
 	@get:Exclude
 	var id = ""
+	var wishlist = false
 
 	companion object {
 		const val KEY_UID = "uid"
 
-		fun fromSnapshot(doc: DocumentSnapshot): Game {
+		fun fromSnapshot(doc: DocumentSnapshot, user: String): Game {
 			val game = Game(doc[Constants.FIELD_TITLE] as String, doc[Constants.FIELD_DEVELOPER] as String, doc[Constants.FIELD_DESCRIPTION] as String)
+			game.wishlist = (doc[Constants.FIELD_WISHLISTERS] as ArrayList<String>).contains(user)
 			doc.reference.collection(Constants.COLLECTION_LISTINGS).get().addOnSuccessListener {
 				for (listing in it) {
 					game.listings.add(Listing.fromSnapshot(listing))
