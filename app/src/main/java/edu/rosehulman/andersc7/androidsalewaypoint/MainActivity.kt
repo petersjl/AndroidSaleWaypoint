@@ -273,7 +273,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 
 				//Get text inputs
 				var desc = view.edit_description_text.text.toString()
-				var img = view.add_image_text.text.toString()
+				var img = view.edit_image_text.text.toString()
 
 				//Check text inputs
 				if (desc == "") desc = "Add a description for this game."
