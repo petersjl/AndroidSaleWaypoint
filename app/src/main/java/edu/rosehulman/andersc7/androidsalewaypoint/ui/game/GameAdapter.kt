@@ -18,18 +18,14 @@ class GameAdapter(var context: Context, val userID: String, val filter: GameFilt
 	private val gamesRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_GAMES)
 	private val userRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS).document(userID)
 	private val filterRef = filter.getSorted(this.gamesRef, this.userRef, this.userID)
-	private var searchRef: Query = filterRef
-
-//	init {
-//		this.search("")
-//	}
+	private var searchRef: Query = filterRef.orderBy(Constants.FIELD_SEARCHTERM, Query.Direction.DESCENDING)
 
 	fun setSnapshotListener() {
 		this.listenerRegistration?.remove()
 		this.games.clear()
 		this.notifyDataSetChanged()
 
-		this.listenerRegistration = this.searchRef.orderBy(Constants.FIELD_TITLE, Query.Direction.DESCENDING).addSnapshotListener { querySnapshot, e ->
+		this.listenerRegistration = this.searchRef.addSnapshotListener { querySnapshot, e ->
 			if (e != null) Log.w(Constants.TAG, "Listen error: $e")
 			else this.processSnapshotChanges(querySnapshot!!)
 		}
@@ -79,8 +75,9 @@ class GameAdapter(var context: Context, val userID: String, val filter: GameFilt
 	}
 
 	fun search(text: String) {
-		val ref: Query = if (text == "") this.filterRef
-		else this.filterRef.orderBy(Constants.FIELD_SEARCHTERM).startAt(text).endAt("${text}\uf8ff")
+		val ref: Query = if (text == "") this.filterRef.orderBy(Constants.FIELD_SEARCHTERM, Query.Direction.DESCENDING)
+//		else this.filterRef.orderBy(Constants.FIELD_SEARCHTERM, Query.Direction.DESCENDING).startAt(text).endAt("${text}\uf8ff")
+		else this.filterRef.orderBy(Constants.FIELD_SEARCHTERM, Query.Direction.DESCENDING).startAt("${text}\uf8ff").endAt(text)
 		this.searchRef = ref
 		this.setSnapshotListener()
 	}
