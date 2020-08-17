@@ -71,6 +71,12 @@ class GameFragment : Fragment() {
 		this.wishlistView = this.root.findViewById(R.id.game_wishlist)
 		this.wishlistView.setOnClickListener {
 			this.userGameReference.set(mapOf("wishlist" to !wishlist), SetOptions.merge())
+			this.gameRef.get().addOnSuccessListener {
+				val wishlisters = it.get(Constants.FIELD_WISHLISTERS) as ArrayList<String>
+				if (wishlist) wishlisters.add(this.user!!)
+				else wishlisters.remove(this.user!!)
+				this.gameRef.set(mapOf(Constants.FIELD_WISHLISTERS to wishlisters), SetOptions.merge())
+			}
 		}
 
 		return this.root

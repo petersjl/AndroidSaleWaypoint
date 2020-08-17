@@ -10,7 +10,7 @@ class FilterStore(private val store: StoreType) : GameFilter {
 		return ""
 	}
 
-	override fun getSorted(games: CollectionReference, user: DocumentReference): Query {
+	override fun getSorted(games: CollectionReference, user: DocumentReference, userID: String ): Query {
 		return games.whereArrayContains(Constants.FIELD_STORES, store.toString())
 	}
 }

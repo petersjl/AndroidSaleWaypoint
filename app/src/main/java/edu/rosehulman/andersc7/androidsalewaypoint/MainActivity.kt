@@ -149,7 +149,8 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				Constants.FIELD_DEVELOPER to dev,
 				Constants.FIELD_DESCRIPTION to desc,
 				Constants.FIELD_STORES to stores,
-				Constants.FIELD_SALE to sale
+				Constants.FIELD_SALE to sale,
+				Constants.FIELD_WISHLISTERS to ArrayList<String>()
 			)
 			
 			gamesRef.add(data).addOnSuccessListener {doc: DocumentReference? ->

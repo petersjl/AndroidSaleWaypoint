@@ -10,7 +10,7 @@ import edu.rosehulman.andersc7.androidsalewaypoint.R
 class FilterSale : GameFilter {
 	override fun getTitle(context: Context): String = context.getString(R.string.nav_sales)
 
-	override fun getSorted(games: CollectionReference, user: DocumentReference): Query {
+	override fun getSorted(games: CollectionReference, user: DocumentReference, userID: String ): Query {
 		return games.whereEqualTo(Constants.FIELD_SALE, true)
 	}
 }

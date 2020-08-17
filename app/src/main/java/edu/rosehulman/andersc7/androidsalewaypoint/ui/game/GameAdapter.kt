@@ -19,7 +19,7 @@ class GameAdapter(var context: Context, val userID: String, val filter: GameFilt
 	private var listenerRegistration: ListenerRegistration? = null
 	private val gamesRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_GAMES)
 	private val userRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS).document(userID)
-	private val sortedRef = filter.getSorted(this.gamesRef, this.userRef)
+	private val sortedRef = filter.getSorted(this.gamesRef, this.userRef, this.userID)
 
 	fun setSnapshotListener() {
 		this.listenerRegistration?.remove()
