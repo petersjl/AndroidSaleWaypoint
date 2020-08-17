@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.URLUtil
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.MenuItemCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -31,9 +33,11 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.dialog_add.view.*
 import kotlinx.android.synthetic.main.dialog_edit.view.*
 import kotlinx.coroutines.newFixedThreadPoolContext
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
-class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, NavigationView.OnNavigationItemSelectedListener, SearchQuery.Searchable {
 
 	private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -42,6 +46,8 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 	private lateinit var authStateListener: FirebaseAuth.AuthStateListener
 	private lateinit var drawerLayout: DrawerLayout
 	private lateinit var drawerToggle: ActionBarDrawerToggle
+
+	private var browseFragment: BrowseFragment? = null
 
 	private var currentGame: Game? = null
 
@@ -154,7 +160,8 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				Constants.FIELD_STORES to stores,
 				Constants.FIELD_SALE to sale,
 				Constants.FIELD_IMAGE to img,
-				Constants.FIELD_WISHLISTERS to ArrayList<String>()
+				Constants.FIELD_WISHLISTERS to ArrayList<String>(),
+				Constants.FIELD_SEARCHTERM to title.toLowerCase(Locale.getDefault())
 			)
 			
 			gamesRef.add(data).addOnSuccessListener {doc: DocumentReference? ->
@@ -440,16 +447,16 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				val ft = supportFragmentManager.beginTransaction()
 				ft.replace(R.id.fragment_container, SignInFragment())
 				ft.commit()
+				this.browseFragment = null
 			}
 			else {
 				toolbar.title = "All Games"
 				supportActionBar?.show()
 				fab.show()
 				val ft = supportFragmentManager.beginTransaction()
-				ft.replace(R.id.fragment_container,
-//					WishlistFragment()
-					BrowseFragment(this.auth.currentUser!!.uid, FilterAll())
-				)
+				val browse = BrowseFragment(this.auth.currentUser!!.uid, FilterAll())
+				this.browseFragment = browse
+				ft.replace(R.id.fragment_container, browse)
 				ft.commit()
 			}
 		}
@@ -468,9 +475,17 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		menuInflater.inflate(R.menu.main, menu)
+
+		val searchViewItem = menu.findItem(R.id.app_bar_search)
+		val searchView: SearchView = MenuItemCompat.getActionView(searchViewItem) as SearchView
+		searchView.setOnQueryTextListener(SearchQuery(this))
+
 		return true
 	}
 
+	override fun onSearch(text: String) {
+		this.browseFragment?.adapter!!.onSearch(text)
+	}
 
 	override fun onGameSelected(game: Game) {
 		Log.d(Constants.TAG, "Game selected: ${game.title}")
@@ -523,7 +538,9 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 		}
 		if (filter != null) {
 			val ft = supportFragmentManager.beginTransaction()
-			ft.replace(R.id.fragment_container, BrowseFragment(this.auth.currentUser!!.uid, filter))
+			val browse = BrowseFragment(this.auth.currentUser!!.uid, filter)
+			this.browseFragment = browse
+			ft.replace(R.id.fragment_container, browse)
 			while (supportFragmentManager.backStackEntryCount > 0){
 				supportFragmentManager.popBackStackImmediate()
 			}

@@ -31,7 +31,6 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 		val visibility = if (game.wishlist) { View.VISIBLE } else { View.GONE }
 		this.itemView.findViewById<ImageView>(R.id.item_game_wishlist).visibility = visibility
 		if (game.image != "") ImageTask(this).execute(game.image)
-		Log.d(Constants.TAG, game.listings.toString())
 		listingsListener = FirebaseFirestore
 			.getInstance()
 			.collection("Games")

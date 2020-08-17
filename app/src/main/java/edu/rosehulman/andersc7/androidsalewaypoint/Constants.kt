@@ -16,6 +16,7 @@ object Constants {
 	const val FIELD_SALE = "sale"
 	const val FIELD_IMAGE = "image"
 	const val FIELD_WISHLISTERS = "wishlisters"
+	const val FIELD_SEARCHTERM = "search_term"
 
 	const val COLLECTION_LISTINGS = "Listings"
 
