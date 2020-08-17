@@ -44,4 +44,5 @@
 	<string name="add_store_icon">Store Icon</string>
 	<string name="developer">Developer</string>
 	<string name="add_a_developer">Add a developer</string>
+	<string name="edit_this_game">Edit this game</string>
 </resources>

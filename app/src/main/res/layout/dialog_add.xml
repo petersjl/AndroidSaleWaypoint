@@ -13,6 +13,17 @@
         android:padding="10dp"
         android:background="@color/colorForeground">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_a_game"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"/>
 
         <TextView
         android:id="@+id/add_title"

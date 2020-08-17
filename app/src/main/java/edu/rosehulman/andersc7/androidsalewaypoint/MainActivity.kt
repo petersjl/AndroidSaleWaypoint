@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 		val builder = AlertDialog.Builder(this, R.style.AlertDialog)
 
 		//Set options
-		builder.setTitle("Add a game")
+//		builder.setTitle("Add a game")
 		val view = LayoutInflater.from(this).inflate(R.layout.dialog_add, null, false)
 		val dialog: AlertDialog = builder.setView(view)
 			.setPositiveButton("Add", null)
@@ -258,7 +258,6 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 
 			//Set up dialog
 			val builder = AlertDialog.Builder(this, R.style.AlertDialog)
-			builder.setTitle("Edit this game")
 			val dialog: AlertDialog = builder.setView(view)
 				.setPositiveButton("Commit", null)
 				.setNegativeButton(android.R.string.cancel, null)

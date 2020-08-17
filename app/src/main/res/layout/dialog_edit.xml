@@ -13,11 +13,22 @@
         android:padding="10dp"
         android:background="@color/colorForeground">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_this_game"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="32sp"
+            android:textStyle="bold"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"/>
 
         <TextView
             android:id="@+id/edit_title"
             style="@style/AddHeaders"
-            android:textSize="30sp"
+            android:textSize="28sp"
             android:text="@string/title"/>
 
         <TextView
@@ -26,11 +37,6 @@
             android:textSize="20sp"
             android:textColor="@color/colorSale"
             android:text="@string/developer" />
-
-        <Space
-            android:id="@+id/extra_space"
-            android:layout_width="match_parent"
-            android:layout_height="20dp" />
 
         <ninja.cooperstuff.expandableview.ExpandableView
             android:layout_width="match_parent"
