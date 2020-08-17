@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -32,6 +33,10 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 	fun bind(game: Game) {
 		this.itemView.setOnClickListener {
 			this.adapter.selectGameAt(this.adapterPosition)
+		}
+		this.itemView.setOnLongClickListener {
+			Toast.makeText(this.itemView.context, game.title, Toast.LENGTH_SHORT).show()
+			return@setOnLongClickListener true
 		}
 		this.textCover = this.itemView.findViewById(R.id.tile_game_title)
 		setIconsBlack()
