@@ -18,7 +18,7 @@ class BrowseFragment(private val userID: String, private val filter: GameFilter)
 	lateinit var adapter: GameAdapter
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		this.root = inflater.inflate(R.layout.fragment_games_tiles, container, false)
+		this.root = inflater.inflate(R.layout.fragment_browse, container, false)
 
 		this.adapter = GameAdapter(this.root.context, this.userID, this.filter, this.listener)
 		val recyclerView = this.root.findViewById<RecyclerView>(R.id.recycler_view)
