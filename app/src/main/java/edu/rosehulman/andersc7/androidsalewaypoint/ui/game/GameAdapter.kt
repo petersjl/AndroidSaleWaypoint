@@ -5,28 +5,31 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.DocumentChange
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import edu.rosehulman.andersc7.androidsalewaypoint.Constants
 import edu.rosehulman.andersc7.androidsalewaypoint.R
+import edu.rosehulman.andersc7.androidsalewaypoint.SearchQuery
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.browse.GameFilter
 
-class GameAdapter(var context: Context, val userID: String, val filter: GameFilter, var listener: OnGameSelectedListener?) : RecyclerView.Adapter<GameViewHolder>() {
+class GameAdapter(var context: Context, val userID: String, val filter: GameFilter, var listener: OnGameSelectedListener?) : RecyclerView.Adapter<GameViewHolder>(), SearchQuery.Searchable {
 	private val games = ArrayList<Game>()
 
 	private var listenerRegistration: ListenerRegistration? = null
 	private val gamesRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_GAMES)
 	private val userRef = FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS).document(userID)
-	private val sortedRef = filter.getSorted(this.gamesRef, this.userRef, this.userID)
+	private val filterRef = filter.getSorted(this.gamesRef, this.userRef, this.userID)
+	private var searchRef: Query = filterRef
+
+//	init {
+//		this.search("")
+//	}
 
 	fun setSnapshotListener() {
 		this.listenerRegistration?.remove()
 		this.games.clear()
 		this.notifyDataSetChanged()
 
-		this.listenerRegistration = this.sortedRef.addSnapshotListener { querySnapshot, e ->
+		this.listenerRegistration = this.searchRef.addSnapshotListener { querySnapshot, e ->
 			if (e != null) Log.w(Constants.TAG, "Listen error: $e")
 			else this.processSnapshotChanges(querySnapshot!!)
 		}
@@ -73,6 +76,17 @@ class GameAdapter(var context: Context, val userID: String, val filter: GameFilt
 		Log.d(Constants.TAG, index.toString())
 		val game = this.games[index]
 		this.listener?.onGameSelected(game)
+	}
+
+	fun search(text: String) {
+		val ref: Query = if (text == "") this.filterRef
+		else this.filterRef.orderBy(Constants.FIELD_SEARCHTERM).startAt(text).endAt("${text}\uf8ff")
+		this.searchRef = ref
+		this.setSnapshotListener()
+	}
+
+	override fun onSearch(text: String) {
+		this.search(text)
 	}
 
 	interface OnGameSelectedListener {

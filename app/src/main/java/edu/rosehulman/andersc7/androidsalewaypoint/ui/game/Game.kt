@@ -38,7 +38,6 @@ data class Game(
 			doc.reference.collection(Constants.COLLECTION_LISTINGS).get().addOnSuccessListener {
 				for (listing in it) {
 					game.listings.add(Listing.fromSnapshot(listing))
-					Log.d(Constants.TAG, "test" + game.listings.size.toString())
 				}
 			}
 			game.id = doc.id
