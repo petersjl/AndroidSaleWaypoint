@@ -68,6 +68,10 @@ class GameAdapter(var context: Context, val userID: String, val filter: GameFilt
 
 	override fun getItemCount(): Int = this.games.size
 
+	override fun onViewRecycled(holder: GameViewHolder) {
+		holder.listingsListener?.remove()
+	}
+
 	fun selectGameAt(index: Int) {
 		Log.d(Constants.TAG, index.toString())
 		val game = this.games[index]
