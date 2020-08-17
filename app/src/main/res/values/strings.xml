@@ -47,4 +47,6 @@
 	<string name="edit_this_game">Edit this game</string>
 	<string name="image_url">Image URL</string>
 	<string name="image">Image</string>
+	<string name="loading">Loading</string>
+	<string name="no_image">No Image</string>
 </resources>

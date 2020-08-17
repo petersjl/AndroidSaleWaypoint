@@ -18,6 +18,7 @@ import edu.rosehulman.andersc7.androidsalewaypoint.ui.ImageTask
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.Listing
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.ListingAdapter
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.ListingLayoutManager
+import kotlinx.android.synthetic.main.fragment_game.*
 import kotlinx.android.synthetic.main.fragment_game.view.*
 
 class GameFragment : Fragment(), ImageConsumer {
@@ -72,6 +73,7 @@ class GameFragment : Fragment(), ImageConsumer {
 		this.root.findViewById<TextView>(R.id.game_developer).text = this.game?.developer
 		this.root.findViewById<TextView>(R.id.game_description).text = this.game?.description
 		if (this.game?.image != "") ImageTask(this).execute(this.game?.image)
+		else this.root.findViewById<TextView>(R.id.game_image_cover).setText(R.string.no_image)
 		this.game?.listings?.forEach { this.adapter.add(it) }
 		this.wishlistView = this.root.findViewById(R.id.game_wishlist)
 		this.wishlistView.setOnClickListener {
@@ -130,6 +132,7 @@ class GameFragment : Fragment(), ImageConsumer {
 	}
 
 	override fun onImageLoaded(bitmap: Bitmap?) {
+		this.root.findViewById<TextView>(R.id.game_image_cover).visibility = View.GONE
 		this.root.game_image.setImageBitmap(bitmap)
 	}
 

@@ -15,6 +15,20 @@
 		app:layout_constraintTop_toTopOf="parent"
 		android:scaleType="centerCrop" />
 
+	<TextView
+		android:id="@+id/tile_game_title"
+		android:visibility="visible"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintTop_toTopOf="@id/tile_image_background"
+		app:layout_constraintBottom_toBottomOf="@id/tile_image_background"
+		app:layout_constraintLeft_toLeftOf="@id/tile_image_background"
+		app:layout_constraintRight_toRightOf="@id/tile_image_background"
+		android:background="@color/colorNotWishlist"
+		android:autoSizeTextType="uniform"
+		android:gravity="center"
+		android:padding="20dp" />
+
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="24dp"
