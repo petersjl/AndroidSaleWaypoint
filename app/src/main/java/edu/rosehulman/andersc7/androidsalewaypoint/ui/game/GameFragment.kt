@@ -105,13 +105,16 @@ class GameFragment : Fragment(), ImageConsumer {
 				Log.d(Constants.TAG, error.toString())
 			}else{
 				game?.description = doc?.get(Constants.FIELD_DESCRIPTION) as String
-				game?.image = doc.get(Constants.FIELD_IMAGE) as String
 				this.root.findViewById<TextView>(R.id.game_description).text = this.game?.description
 
-				this.root.findViewById<TextView>(R.id.game_image_cover).setText(R.string.loading)
-				this.root.findViewById<TextView>(R.id.game_image_cover).visibility = View.VISIBLE
-				if (this.game?.image != "") ImageTask(this).execute(this.game?.image)
-				else this.root.findViewById<TextView>(R.id.game_image_cover).setText(R.string.no_image)
+				val image = doc.get(Constants.FIELD_IMAGE) as String
+				if (image != game?.image) {
+					game?.image = image
+					this.root.findViewById<TextView>(R.id.game_image_cover) .setText(R.string.loading)
+					this.root.findViewById<TextView>(R.id.game_image_cover).visibility = View.VISIBLE
+					if (this.game?.image != "") ImageTask(this).execute(this.game?.image)
+					else this.root.findViewById<TextView>(R.id.game_image_cover) .setText(R.string.no_image)
+				}
 			}
 		}
 
@@ -140,7 +143,7 @@ class GameFragment : Fragment(), ImageConsumer {
 	}
 
 	override fun getContextReference(): Context {
-		return this.requireContext()
+		return this.root.context
 	}
 
 	override fun onImageLoaded(bitmap: Bitmap?) {
