@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 			if (title == "") {message("Title cannot be empty"); return@setOnClickListener}
 			if (dev == "") {message("Developer cannot be empty"); return@setOnClickListener}
 			if (desc == "") desc = "Add a description for this game."
-			if (!URLUtil.isValidUrl(img)) {message("Image URL is not valid"); return@setOnClickListener}
+			if (img != "" && !URLUtil.isValidUrl(img)) {message("Image URL is not valid"); return@setOnClickListener}
 
 			//Get enables
 			val onSteam = view.add_enabled_steam.isChecked
@@ -284,7 +284,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 
 				//Check text inputs
 				if (desc == "") desc = "Add a description for this game."
-				if (!URLUtil.isValidUrl(img)) {message("Image URL is not valid"); return@setOnClickListener}
+				if (img != "" && !URLUtil.isValidUrl(img)) {message("Image URL is not valid"); return@setOnClickListener}
 
 				//Get enables
 				val onSteam = view.edit_enabled_steam.isChecked
