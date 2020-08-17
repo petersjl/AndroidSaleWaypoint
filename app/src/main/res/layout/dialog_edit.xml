@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+	    android:orientation="vertical"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:padding="10dp"
         android:background="@color/colorForeground">
@@ -24,323 +25,330 @@
             style="@style/AddHeaders"
             android:textSize="20sp"
             android:textColor="@color/colorSale"
-            android:text="@string/developer"
-            android:layout_below="@id/edit_title"/>
+            android:text="@string/developer" />
 
         <Space
             android:id="@+id/extra_space"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_below="@id/edit_developer"/>
+            android:layout_height="20dp" />
 
-        <TextView
-            android:id="@+id/edit_description"
-            style="@style/AddHeaders"
-            android:text="@string/add_about"
-            android:layout_below="@id/extra_space"/>
-
-        <EditText
-            android:id="@+id/edit_description_text"
-            style="@style/AddEditText"
-            android:layout_below="@id/edit_description"
-            android:paddingTop="10dp"
-            android:hint="@string/describe_the_game"
-            android:autofillHints=""
-            android:inputType="textMultiLine|textCapSentences"/>
-
-        <LinearLayout
+        <ninja.cooperstuff.expandableview.ExpandableView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_description_text"
-            android:orientation="vertical">
+            app:startOpen="false"
+            app:title="@string/add_about">
 
-            <!--Table Headers-->
+            <EditText
+                android:id="@+id/edit_description_text"
+                style="@style/AddEditText"
+                android:paddingTop="10dp"
+                android:hint="@string/describe_the_game"
+                android:autofillHints=""
+                android:inputType="textMultiLine|textCapSentences"/>
+
+        </ninja.cooperstuff.expandableview.ExpandableView>
+
+        <ninja.cooperstuff.expandableview.ExpandableView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startOpen="true"
+            app:title="@string/listings">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    style="@style/AddTableHeader"
-                    android:text="@string/add_store"
-                    android:layout_weight="8"/>
+                android:orientation="vertical">
 
-                <TextView
-                    style="@style/AddTableHeader"
-                    android:text="@string/add_enabled"
-                    android:layout_weight="10"/>
+                <!--Table Headers-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/AddTableHeader"
+                        android:text="@string/add_store"
+                        android:layout_weight="8"/>
 
-                <TextView
-                    style="@style/AddTableHeader"
-                    android:text="@string/add_price"
-                    android:layout_weight="15"/>
+                    <TextView
+                        style="@style/AddTableHeader"
+                        android:text="@string/add_enabled"
+                        android:layout_weight="10"/>
 
-                <TextView
-                    style="@style/AddTableHeader"
-                    android:text="@string/add_sale"
-                    android:layout_weight="15"/>
+                    <TextView
+                        style="@style/AddTableHeader"
+                        android:text="@string/add_price"
+                        android:layout_weight="15"/>
+
+                    <TextView
+                        style="@style/AddTableHeader"
+                        android:text="@string/add_sale"
+                        android:layout_weight="15"/>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <!--Steam Row-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_steam"
+                        android:layout_weight="8"
+                        app:tint="@color/colorTextPrimary"
+                        android:contentDescription="@string/add_store_icon" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/edit_enabled_steam"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/colorSale"
+                            android:backgroundTint="@color/colorSale"
+                            android:layout_centerInParent="true"/>
+
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/edit_price_steam"
+                        style="@style/AddTableEditText"
+                        android:layout_weight="15"
+                        android:inputType="numberDecimal"
+                        android:autofillHints=""
+                        tools:ignore="LabelFor" />
+
+                    <EditText
+                        android:id="@+id/edit_sale_steam"
+                        style="@style/AddTableEditText"
+                        android:hint="@string/add_sale_hint"
+                        android:layout_weight="15"
+                        android:inputType="number"
+                        android:autofillHints=""
+                        tools:ignore="LabelFor" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <!--PlayStation Row-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_playstation"
+                        android:layout_weight="8"
+                        app:tint="@color/colorTextPrimary"
+                        android:contentDescription="@string/add_store_icon" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/edit_enabled_playstation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/colorSale"
+                            android:backgroundTint="@color/colorSale"
+                            android:layout_centerInParent="true"/>
+
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/edit_price_playstation"
+                        style="@style/AddTableEditText"
+                        android:layout_weight="15"
+                        android:inputType="numberDecimal"
+                        android:autofillHints=""
+                        tools:ignore="LabelFor" />
+
+                    <EditText
+                        android:id="@+id/edit_sale_playstation"
+                        style="@style/AddTableEditText"
+                        android:hint="@string/add_sale_hint"
+                        android:layout_weight="15"
+                        android:inputType="number"
+                        android:autofillHints=""
+                        tools:ignore="LabelFor" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <!--Xbox Row-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_xbox"
+                        android:layout_weight="8"
+                        app:tint="@color/colorTextPrimary"
+                        android:contentDescription="@string/add_store_icon" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/edit_enabled_xbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/colorSale"
+                            android:backgroundTint="@color/colorSale"
+                            android:layout_centerInParent="true"/>
+
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/edit_price_xbox"
+                        style="@style/AddTableEditText"
+                        android:layout_weight="15"
+                        android:inputType="numberDecimal"
+                        android:autofillHints=""
+                        tools:ignore="LabelFor" />
+
+                    <EditText
+                        android:id="@+id/edit_sale_xbox"
+                        style="@style/AddTableEditText"
+                        android:hint="@string/add_sale_hint"
+                        android:layout_weight="15"
+                        android:inputType="number"
+                        android:autofillHints=""
+                        tools:ignore="LabelFor" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <!--Nintendo Row-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_nintendo"
+                        android:layout_weight="8"
+                        app:tint="@color/colorTextPrimary"
+                        android:contentDescription="@string/add_store_icon" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/edit_enabled_nintendo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/colorSale"
+                            android:backgroundTint="@color/colorSale"
+                            android:layout_centerInParent="true"/>
+
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/edit_price_nintendo"
+                        style="@style/AddTableEditText"
+                        android:layout_weight="15"
+                        android:inputType="numberDecimal"
+                        android:autofillHints=""
+                        tools:ignore="LabelFor" />
+
+                    <EditText
+                        android:id="@+id/edit_sale_nintendo"
+                        style="@style/AddTableEditText"
+                        android:hint="@string/add_sale_hint"
+                        android:layout_weight="15"
+                        android:inputType="number"
+                        android:autofillHints=""
+                        tools:ignore="LabelFor" />
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <!--Itch Row-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_itch"
+                        android:layout_weight="8"
+                        app:tint="@color/colorTextPrimary"
+                        android:contentDescription="@string/add_store_icon" />
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="10">
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/edit_enabled_itch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/colorSale"
+                            android:backgroundTint="@color/colorSale"
+                            android:layout_centerInParent="true"/>
+
+                    </RelativeLayout>
+
+                    <EditText
+                        android:id="@+id/edit_price_itch"
+                        style="@style/AddTableEditText"
+                        android:layout_weight="15"
+                        android:inputType="numberDecimal"
+                        android:autofillHints=""
+                        tools:ignore="LabelFor" />
+
+                    <EditText
+                        android:id="@+id/edit_sale_itch"
+                        style="@style/AddTableEditText"
+                        android:hint="@string/add_sale_hint"
+                        android:layout_weight="15"
+                        android:inputType="number"
+                        android:autofillHints=""
+                        tools:ignore="LabelFor" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
+        </ninja.cooperstuff.expandableview.ExpandableView>
 
-            <!--Steam Row-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+    </LinearLayout>
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_steam"
-                    android:layout_weight="8"
-                    app:tint="@color/colorTextPrimary"
-                    android:contentDescription="@string/add_store_icon" />
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10">
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/edit_enabled_steam"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:shadowColor="@color/colorSale"
-                        android:backgroundTint="@color/colorSale"
-                        android:layout_centerInParent="true"/>
-
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/edit_price_steam"
-                    style="@style/AddTableEditText"
-                    android:layout_weight="15"
-                    android:inputType="numberDecimal"
-                    android:autofillHints=""
-                    tools:ignore="LabelFor" />
-
-                <EditText
-                    android:id="@+id/edit_sale_steam"
-                    style="@style/AddTableEditText"
-                    android:hint="@string/add_sale_hint"
-                    android:layout_weight="15"
-                    android:inputType="number"
-                    android:autofillHints=""
-                    tools:ignore="LabelFor" />
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
-
-            <!--PlayStation Row-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_playstation"
-                    android:layout_weight="8"
-                    app:tint="@color/colorTextPrimary"
-                    android:contentDescription="@string/add_store_icon" />
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10">
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/edit_enabled_playstation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:shadowColor="@color/colorSale"
-                        android:backgroundTint="@color/colorSale"
-                        android:layout_centerInParent="true"/>
-
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/edit_price_playstation"
-                    style="@style/AddTableEditText"
-                    android:layout_weight="15"
-                    android:inputType="numberDecimal"
-                    android:autofillHints=""
-                    tools:ignore="LabelFor" />
-
-                <EditText
-                    android:id="@+id/edit_sale_playstation"
-                    style="@style/AddTableEditText"
-                    android:hint="@string/add_sale_hint"
-                    android:layout_weight="15"
-                    android:inputType="number"
-                    android:autofillHints=""
-                    tools:ignore="LabelFor" />
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
-
-            <!--Xbox Row-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_xbox"
-                    android:layout_weight="8"
-                    app:tint="@color/colorTextPrimary"
-                    android:contentDescription="@string/add_store_icon" />
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10">
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/edit_enabled_xbox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:shadowColor="@color/colorSale"
-                        android:backgroundTint="@color/colorSale"
-                        android:layout_centerInParent="true"/>
-
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/edit_price_xbox"
-                    style="@style/AddTableEditText"
-                    android:layout_weight="15"
-                    android:inputType="numberDecimal"
-                    android:autofillHints=""
-                    tools:ignore="LabelFor" />
-
-                <EditText
-                    android:id="@+id/edit_sale_xbox"
-                    style="@style/AddTableEditText"
-                    android:hint="@string/add_sale_hint"
-                    android:layout_weight="15"
-                    android:inputType="number"
-                    android:autofillHints=""
-                    tools:ignore="LabelFor" />
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
-
-            <!--Nintendo Row-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_nintendo"
-                    android:layout_weight="8"
-                    app:tint="@color/colorTextPrimary"
-                    android:contentDescription="@string/add_store_icon" />
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10">
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/edit_enabled_nintendo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:shadowColor="@color/colorSale"
-                        android:backgroundTint="@color/colorSale"
-                        android:layout_centerInParent="true"/>
-
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/edit_price_nintendo"
-                    style="@style/AddTableEditText"
-                    android:layout_weight="15"
-                    android:inputType="numberDecimal"
-                    android:autofillHints=""
-                    tools:ignore="LabelFor" />
-
-                <EditText
-                    android:id="@+id/edit_sale_nintendo"
-                    style="@style/AddTableEditText"
-                    android:hint="@string/add_sale_hint"
-                    android:layout_weight="15"
-                    android:inputType="number"
-                    android:autofillHints=""
-                    tools:ignore="LabelFor" />
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
-
-            <!--Itch Row-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_itch"
-                    android:layout_weight="8"
-                    app:tint="@color/colorTextPrimary"
-                    android:contentDescription="@string/add_store_icon" />
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="10">
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/edit_enabled_itch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:shadowColor="@color/colorSale"
-                        android:backgroundTint="@color/colorSale"
-                        android:layout_centerInParent="true"/>
-
-                </RelativeLayout>
-
-                <EditText
-                    android:id="@+id/edit_price_itch"
-                    style="@style/AddTableEditText"
-                    android:layout_weight="15"
-                    android:inputType="numberDecimal"
-                    android:autofillHints=""
-                    tools:ignore="LabelFor" />
-
-                <EditText
-                    android:id="@+id/edit_sale_itch"
-                    style="@style/AddTableEditText"
-                    android:hint="@string/add_sale_hint"
-                    android:layout_weight="15"
-                    android:inputType="number"
-                    android:autofillHints=""
-                    tools:ignore="LabelFor" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
 </ScrollView>
