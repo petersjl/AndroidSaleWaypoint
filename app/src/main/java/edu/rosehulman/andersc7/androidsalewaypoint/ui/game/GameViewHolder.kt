@@ -54,7 +54,7 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 			.collection("Games")
 			.document(game.id)
 			.collection("Listings").addSnapshotListener { listings: QuerySnapshot?, error: FirebaseFirestoreException? ->
-				if (error != null) Log.d(Constants.TAG, "Well somthing went wrong in the GameViewHolder")
+				if (error != null) Log.d(Constants.TAG, "Well something went wrong in the GameViewHolder")
 				else{
 					setIconsBlack()
 					for(l in listings!!){
