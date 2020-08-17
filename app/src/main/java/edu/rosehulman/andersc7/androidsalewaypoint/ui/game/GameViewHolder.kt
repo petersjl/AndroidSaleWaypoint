@@ -1,6 +1,7 @@
 package edu.rosehulman.andersc7.androidsalewaypoint.ui.game
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.AsyncTask
@@ -10,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -29,6 +31,10 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 	lateinit var textCover: TextView
 	var imageTask: AsyncTask<String, Void, Bitmap>? = null
 	var imageTaskRunning = false
+
+	val colorNotListed = this.view.context.getColor(R.color.colorNotListed)
+	val colorListed = this.view.context.getColor(R.color.colorTextPrimary)
+	val colorSale = this.view.context.getColor(R.color.colorSale)
 
 	fun bind(game: Game) {
 		this.itemView.setOnClickListener {
@@ -59,64 +65,29 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 					setIconsBlack()
 					for(l in listings!!){
 						val listing = l.toObject(Listing::class.java)
-						when(listing.store){
-							StoreType.STEAM -> {
-								DrawableCompat.setTint(
-									DrawableCompat.wrap(view.tile_steam.drawable),
-									Color.parseColor(if (listing.sale == 0f) "#EEEEEE" else "#00A273")
-								)
-							}
-							StoreType.PLAYSTATION -> {
-								DrawableCompat.setTint(
-									DrawableCompat.wrap(view.tile_playstation.drawable),
-									Color.parseColor(if (listing.sale == 0f) "#EEEEEE" else "#00A273")
-								)
-							}
-							StoreType.XBOX -> {
-								DrawableCompat.setTint(
-									DrawableCompat.wrap(view.tile_xbox.drawable),
-									Color.parseColor(if (listing.sale == 0f) "#EEEEEE" else "#00A273")
-								)
-							}
-							StoreType.NINTENDO -> {
-								DrawableCompat.setTint(
-									DrawableCompat.wrap(view.tile_nintendo.drawable),
-									Color.parseColor(if (listing.sale == 0f) "#EEEEEE" else "#00A273")
-								)
-							}
-							StoreType.ITCH -> {
-								DrawableCompat.setTint(
-									DrawableCompat.wrap(view.tile_itch.drawable),
-									Color.parseColor(if (listing.sale == 0f) "#EEEEEE" else "#00A273")
-								)
-							}
+						val store = when(listing.store) {
+							StoreType.STEAM -> view.tile_steam
+							StoreType.PLAYSTATION -> view.tile_playstation
+							StoreType.XBOX -> view.tile_xbox
+							StoreType.NINTENDO -> view.tile_nintendo
+							StoreType.ITCH -> view.tile_itch
 						}
+						setColor(store, if (listing.sale == 0f) colorListed else colorSale)
 					}
 				}
 			}
 	}
 
+	private fun setColor(imageView: ImageView, color: Int) {
+		ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(color))
+	}
+
 	fun setIconsBlack(){
-		DrawableCompat.setTint(
-			DrawableCompat.wrap(view.tile_steam.drawable),
-			Color.parseColor("#000000")
-		)
-		DrawableCompat.setTint(
-			DrawableCompat.wrap(view.tile_playstation.drawable),
-			Color.parseColor("#000000")
-		)
-		DrawableCompat.setTint(
-			DrawableCompat.wrap(view.tile_xbox.drawable),
-			Color.parseColor("#000000")
-		)
-		DrawableCompat.setTint(
-			DrawableCompat.wrap(view.tile_nintendo.drawable),
-			Color.parseColor("#000000")
-		)
-		DrawableCompat.setTint(
-			DrawableCompat.wrap(view.tile_itch.drawable),
-			Color.parseColor("#000000")
-		)
+		setColor(view.tile_steam, colorNotListed)
+		setColor(view.tile_playstation, colorNotListed)
+		setColor(view.tile_xbox, colorNotListed)
+		setColor(view.tile_nintendo, colorNotListed)
+		setColor(view.tile_itch, colorNotListed)
 	}
 
 	override fun getContextReference(): Context {

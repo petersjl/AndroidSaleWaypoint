@@ -48,8 +48,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:src="@drawable/ic_steam"
-				android:contentDescription="@string/store_icon"
-				app:tint="#FFF"/>
+				android:contentDescription="@string/store_icon" />
 
 			<ImageView
 				android:id="@+id/tile_playstation"

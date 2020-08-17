@@ -8,6 +8,7 @@
 	<color name="colorForeground">#546E7A</color>
 	<color name="colorTextPrimary">#EEEEEE</color>
 	<color name="colorTextSecondary">#888888</color>
+	<color name="colorNotListed">#000000</color>
 	<color name="colorSale">#00A273</color>
 	<color name="colorWishlist">#F2C94C</color>
 	<color name="colorNotWishlist">#455A64</color>
