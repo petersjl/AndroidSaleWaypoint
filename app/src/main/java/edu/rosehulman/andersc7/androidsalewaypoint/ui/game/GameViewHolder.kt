@@ -39,7 +39,6 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 		this.itemView.findViewById<ImageView>(R.id.item_game_wishlist).visibility = visibility
 		this.textCover.setText(R.string.loading)
 		this.textCover.visibility = View.VISIBLE
-		if (imageTaskRunning) this.imageTask?.cancel(true)
 		if (game.image != "") {
 			this.imageTask = ImageTask(this).execute(game.image)
 			this.imageTaskRunning = true

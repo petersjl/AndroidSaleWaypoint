@@ -70,6 +70,7 @@ class GameAdapter(var context: Context, val userID: String, val filter: GameFilt
 
 	override fun onViewRecycled(holder: GameViewHolder) {
 		holder.listingsListener?.remove()
+		if (holder.imageTaskRunning) holder.imageTask?.cancel(true)
 	}
 
 	fun selectGameAt(index: Int) {
