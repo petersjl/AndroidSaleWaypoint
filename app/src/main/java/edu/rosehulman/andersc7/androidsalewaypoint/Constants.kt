@@ -8,8 +8,6 @@ object Constants {
 	const val Nintendo = "Nintendo"
 	const val Itch = "Itch"
 
-	const val INVALID_IMAGE = "https://drugstore.ng/storage/drugstore-nigeria/products/g0KpMAuzz6aw9ocPTJEX3vZnrxubJni8q5TQ4Gri.png"
-
 	const val COLLECTION_GAMES = "Games"
 	const val FIELD_TITLE = "title"
 	const val FIELD_DEVELOPER = "developer"

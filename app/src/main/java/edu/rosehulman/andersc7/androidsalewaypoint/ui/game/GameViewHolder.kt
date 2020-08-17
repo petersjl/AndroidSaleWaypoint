@@ -1,5 +1,6 @@
 package edu.rosehulman.andersc7.androidsalewaypoint.ui.game
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Log
@@ -105,6 +106,10 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 			DrawableCompat.wrap(view.tile_itch.drawable),
 			Color.parseColor("#000000")
 		)
+	}
+
+	override fun getContextReference(): Context {
+		return this.itemView.context
 	}
 
 	override fun onImageLoaded(bitmap: Bitmap?) {
