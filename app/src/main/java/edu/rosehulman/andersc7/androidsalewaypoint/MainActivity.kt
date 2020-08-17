@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.URLUtil
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -74,11 +75,13 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 			val title = view.add_title_text.text.toString()
 			val dev = view.add_developer_text.text.toString()
 			var desc = view.add_description_text.text.toString()
+			var img = view.add_image_text.text.toString()
 
 			//Check text inputs
 			if (title == "") {message("Title cannot be empty"); return@setOnClickListener}
 			if (dev == "") {message("Developer cannot be empty"); return@setOnClickListener}
 			if (desc == "") desc = "Add a description for this game."
+			if (!URLUtil.isValidUrl(img)) {message("Image URL is not valid"); return@setOnClickListener}
 
 			//Get enables
 			val onSteam = view.add_enabled_steam.isChecked
@@ -150,7 +153,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				Constants.FIELD_DESCRIPTION to desc,
 				Constants.FIELD_STORES to stores,
 				Constants.FIELD_SALE to sale,
-				Constants.FIELD_IMAGE to "",
+				Constants.FIELD_IMAGE to img,
 				Constants.FIELD_WISHLISTERS to ArrayList<String>()
 			)
 			
@@ -224,6 +227,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 			view.edit_title.text = game.title
 			view.edit_developer.text = game.developer
 			view.edit_description_text.setText(game.description)
+			view.edit_image_text.setText(game.image)
 			for (listing in game.listings){
 				when (listing.store){
 					StoreType.STEAM -> {
@@ -269,9 +273,11 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 
 				//Get text inputs
 				var desc = view.edit_description_text.text.toString()
+				var img = view.add_image_text.text.toString()
 
 				//Check text inputs
 				if (desc == "") desc = "Add a description for this game."
+				if (!URLUtil.isValidUrl(img)) {message("Image URL is not valid"); return@setOnClickListener}
 
 				//Get enables
 				val onSteam = view.edit_enabled_steam.isChecked
@@ -324,7 +330,8 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				gamesRef.document(game.id).set(hashMapOf(
 					Constants.FIELD_DESCRIPTION to desc,
 					Constants.FIELD_STORES to stores,
-					Constants.FIELD_SALE to sale
+					Constants.FIELD_SALE to sale,
+					Constants.FIELD_IMAGE to img
 				), SetOptions.merge())
 
 				//Set store listings
