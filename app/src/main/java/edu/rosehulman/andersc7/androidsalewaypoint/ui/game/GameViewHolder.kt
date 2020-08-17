@@ -1,5 +1,6 @@
 package edu.rosehulman.andersc7.androidsalewaypoint.ui.game
 
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Log
 import android.view.View
@@ -12,11 +13,13 @@ import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
 import edu.rosehulman.andersc7.androidsalewaypoint.Constants
 import edu.rosehulman.andersc7.androidsalewaypoint.R
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.ImageConsumer
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.ImageTask
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.Listing
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.StoreType
 import kotlinx.android.synthetic.main.item_game.view.*
 
-class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.ViewHolder(itemView) {
+class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.ViewHolder(itemView), ImageConsumer {
 	var view: View = itemView
 	var listingsListener: ListenerRegistration? = null
 
@@ -27,6 +30,7 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 		setIconsBlack()
 		val visibility = if (game.wishlist) { View.VISIBLE } else { View.GONE }
 		this.itemView.findViewById<ImageView>(R.id.item_game_wishlist).visibility = visibility
+		if (game.image != "") ImageTask(this).execute(game.image)
 		Log.d(Constants.TAG, game.listings.toString())
 		listingsListener = FirebaseFirestore
 			.getInstance()
@@ -96,5 +100,9 @@ class GameViewHolder(itemView: View, var adapter: GameAdapter) : RecyclerView.Vi
 			DrawableCompat.wrap(view.tile_itch.drawable),
 			Color.parseColor("#000000")
 		)
+	}
+
+	override fun onImageLoaded(bitmap: Bitmap?) {
+		this.itemView.findViewById<ImageView>(R.id.tile_image_background).setImageBitmap(bitmap)
 	}
 }

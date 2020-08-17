@@ -1,5 +1,6 @@
 package edu.rosehulman.andersc7.androidsalewaypoint.ui.game
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.*
 import edu.rosehulman.andersc7.androidsalewaypoint.Constants
 import edu.rosehulman.andersc7.androidsalewaypoint.R
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.ImageConsumer
+import edu.rosehulman.andersc7.androidsalewaypoint.ui.ImageTask
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.Listing
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.ListingAdapter
 import edu.rosehulman.andersc7.androidsalewaypoint.ui.listing.ListingLayoutManager
+import kotlinx.android.synthetic.main.fragment_game.view.*
 
-class GameFragment : Fragment() {
+class GameFragment : Fragment(), ImageConsumer {
 	lateinit var root: View
 	private var game: Game? = null
 	private var user: String? = null
@@ -67,6 +71,7 @@ class GameFragment : Fragment() {
 		this.root.findViewById<TextView>(R.id.game_title).text = this.game?.title
 		this.root.findViewById<TextView>(R.id.game_developer).text = this.game?.developer
 		this.root.findViewById<TextView>(R.id.game_description).text = this.game?.description
+		if (this.game?.image != "") ImageTask(this).execute(this.game?.image)
 		this.game?.listings?.forEach { this.adapter.add(it) }
 		this.wishlistView = this.root.findViewById(R.id.game_wishlist)
 		this.wishlistView.setOnClickListener {
@@ -122,6 +127,10 @@ class GameFragment : Fragment() {
 		super.onPause()
 		gameListener = null
 		listingsListener = null
+	}
+
+	override fun onImageLoaded(bitmap: Bitmap?) {
+		this.root.game_image.setImageBitmap(bitmap)
 	}
 
 	companion object {

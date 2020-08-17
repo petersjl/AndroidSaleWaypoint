@@ -150,6 +150,7 @@ class MainActivity : AppCompatActivity(), GameAdapter.OnGameSelectedListener, Na
 				Constants.FIELD_DESCRIPTION to desc,
 				Constants.FIELD_STORES to stores,
 				Constants.FIELD_SALE to sale,
+				Constants.FIELD_IMAGE to "",
 				Constants.FIELD_WISHLISTERS to ArrayList<String>()
 			)
 			

@@ -13,8 +13,7 @@
 		android:layout_height="0dp"
 		app:layout_constraintDimensionRatio="16:9"
 		app:layout_constraintTop_toTopOf="parent"
-		android:scaleType="centerCrop"
-		android:src="@drawable/banner_terraria"/>
+		android:scaleType="centerCrop" />
 
 	<RelativeLayout
 		android:layout_width="match_parent"

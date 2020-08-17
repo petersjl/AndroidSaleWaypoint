@@ -14,6 +14,7 @@ object Constants {
 	const val FIELD_DESCRIPTION = "description"
 	const val FIELD_STORES = "stores"
 	const val FIELD_SALE = "sale"
+	const val FIELD_IMAGE = "image"
 	const val FIELD_WISHLISTERS = "wishlisters"
 
 	const val COLLECTION_LISTINGS = "Listings"
