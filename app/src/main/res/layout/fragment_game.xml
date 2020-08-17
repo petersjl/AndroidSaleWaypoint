@@ -4,8 +4,7 @@
 	android:layout_height="match_parent"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:background="@color/colorBackground"
-	android:paddingHorizontal="16dp">
+	android:background="@color/colorBackground">
 
 	<androidx.core.widget.NestedScrollView
 		android:layout_width="match_parent"
@@ -15,7 +14,7 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:paddingVertical="16dp"
+			android:padding="16dp"
 			android:orientation="vertical">
 
 			<LinearLayout
@@ -115,7 +114,8 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				app:title="@string/listings"
-				app:startOpen="true">
+				app:startOpen="true"
+				android:layout_marginBottom="48dp">
 
 				<androidx.recyclerview.widget.RecyclerView
 					android:id="@+id/game_listings"
